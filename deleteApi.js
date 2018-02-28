@@ -1,6 +1,7 @@
 var querystring =require('querystring');
 var fs = require('fs');
 function deleteApi(req,res,ApiList) {
+    console.log('deleteApi');
     var body ='';
     req.on('data', function (chunk) {
         body+=chunk;

@@ -2,11 +2,13 @@ var ApiList = require('./urlList');
 var fs =require('fs');
 // var handleError =require('./handleError');
 function getFileContent(app,fileName,res,fn) {
+    console.log('getFileContent');
     fs.readFile(fileName, 'utf-8', function (err, data) {
-       var error =false;
+        console.log('readFile');
+        var error =false;
         if (err) {
            error= true;
-            fn(error,'读取文件失败')
+            fn(error,'读取文件失败','',res)
         }
         else {
            try{
@@ -14,7 +16,7 @@ function getFileContent(app,fileName,res,fn) {
 
             ApiList.add(value, (isErr,apiList) => {
                  if(isErr){
-                     fn(error,'添加错误')
+                     fn(error,'添加错误','',res)
                  }
                  else{
 
@@ -54,12 +56,13 @@ function getFileContent(app,fileName,res,fn) {
     });
 };
 function addApi(app,filename,res) {
+    console.log('addApi');
     getFileContent(app,filename, res,addToList)
 }
 function addToList (error,value,list,res) {
-    console.log('我的地');
+    console.log('addToList');
     if(error){
-        res.writeHead(500, {'Content-Type': 'text/plain'});
+        res.writeHead(500, {  });
         res.end({"data": value});
        return false
    }

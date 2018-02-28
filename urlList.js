@@ -6,6 +6,7 @@ class Rectangle {
         return this.apiList
     }
     add(apiList,fn) {
+        console.log('add list');
         var isErr =false;
         function addWith(string) {
           var name = string;
@@ -26,10 +27,6 @@ class Rectangle {
             while ( x=  reg.exec(url) ){
                 agrList.push(x[1])
             }
-            console.log('url 的数值');
-
-            console.log(url);
-
             var regv= '(\\S+)';
             var reg =  url.replace(reg, regv);
             return {"apiName":reg,"arg":agrList};
@@ -60,7 +57,9 @@ class Rectangle {
         // }
     }
     getOne(apiName,fn){
-   if(this.apiList[apiName]){
+        console.log('getOne list');
+
+        if(this.apiList[apiName]){
        fn(this.apiList[apiName])
    }
    else{
@@ -69,6 +68,7 @@ class Rectangle {
 
     }
     deleteApi(apiName,fn){
+        console.log('deleteApi list');
         if(this.apiList[apiName]){
             delete this.apiList[apiName]
         }
@@ -77,6 +77,7 @@ class Rectangle {
 
     }
     getApi(apiName){
+        console.log('getApi list');
        return this.apiList[apiName]?this.apiList[apiName]:false
     }
 };

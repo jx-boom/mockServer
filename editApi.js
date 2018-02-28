@@ -2,6 +2,7 @@ var querystring = require('querystring');
 var fs = require("fs");
 var uploadAPI =require('./uploadAPI');
 function editApi(req,res,ApiList,app) {
+    console.log('editApi');
     var body =''
     req.on('data', function (chunk) {
         body+=chunk;

@@ -12,12 +12,13 @@ var fs = require('fs');
 
 
 function get_file_content(filepath) {
+    console.log('get_file_content');
     return fs.readFileSync(filepath);
 }
 function response(app) {
 
 
-    console.log('加载请求');
+    console.log('response');
 
 
     app.get('/',function (req,res) {
@@ -40,13 +41,19 @@ function response(app) {
         res.end(get_file_content(__dirname + '\\' + 'pp.png'))
     });
     app.get('/Ip.js',function (req,res) {
+        console.log('Ip');
+        console.log('?????');
+        console.log('?????');
+        console.log('?????');
+        console.log('?????');
         res.end(get_file_content(__dirname + '\\' + 'Ip.js'))
     });
 
     app.get('/swipper.css',function (req,res) {
         res.writeHead(200, { 'Content-Type': 'text/css' });
         res.end(get_file_content(__dirname + '\\' + 'swipper.css'))
-    });app.get('/swipper.js',function (req,res) {
+    });
+    app.get('/swipper.js',function (req,res) {
         res.end(get_file_content(__dirname + '\\' + 'swipper.js'))
     });
   app.post('/upFile',function (req,res) {

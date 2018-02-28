@@ -3,7 +3,7 @@ var querystring = require('querystring');
 
 function reslogic(req, res,Api,agrJson) {
     var body ='';
-
+    console.log('reslogic');
     req.on('data', function (chunk) {
         body+=chunk;
     });

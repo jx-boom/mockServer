@@ -14,7 +14,7 @@ fs.readdir(__dirname+"\\json",function(err, files){
 
 
 function uploadFile(req,res,app) {
-
+    console.log('uploadFile 事件');
     var form = formidable.IncomingForm({
         encoding : 'utf-8',//上传编码
         uploadDir : "json",//上传目录，指的是服务器的路径，如果不存在将会报错。
@@ -30,7 +30,7 @@ function uploadFile(req,res,app) {
         console.log('[progress]: ' + JSON.stringify(progressInfo));
     })
         .on('file', function (filed, file) {
-            allFile.push([filed, file]);//收集传过来的所有文件
+            allFile.push([file]);//收集传过来的所有文件
         })
         .on('end', function() {
             console.log('上传成功！');
@@ -43,14 +43,17 @@ function uploadFile(req,res,app) {
             if(err){
                 console.log(err);
             }
+            console.log(allFile);
+            console.log('this is all file');
             allFile.forEach(function(file,index){
-                var fieldName=file[0];
-                var types = file[1].name.split('.');
+                var fieldName=file[0].name;
+                var types = file[0].name.split('.');
                 var date = new Date();
                 var ms = Date.parse(date);
-               var fileName =form.uploadDir+"/"+types[0]+"."+String(types[types.length-1]);
-                fs.renameSync(file[1].path,fileName);//重命名文件，默认的文件名是带有一串编码的，我们要把它还原为它原先的名字。
-                addApi(app,fileName,res);
+               // var fileName =form.uploadDir+"/"+types[0]+"."+String(types[types.length-1]);
+                // console.log('重命名文件');
+                // fs.renameSync(file[1].path,fileName);//重命名文件，默认的文件名是带有一串编码的，我们要把它还原为它原先的名字。
+                addApi(app,fieldName,res);
             });
         });
 

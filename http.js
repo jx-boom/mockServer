@@ -6,8 +6,9 @@ var uploadApi =require('./uploadApi');
 var os = require('os');
 var fs =require('fs');
 var cp  = require('child_process');
-var ioConnect = require('./io/connect')
+var ioConnect = require('./io/connect');
 function getIPAdress(){
+    console.log('getIPAdress');
     var interfaces = os.networkInterfaces();
     for(var devName in interfaces){
         var iface = interfaces[devName];
@@ -22,6 +23,8 @@ function getIPAdress(){
 // 引入路由模块
 var app = route();
 // 初始化
+resApi(app);
+
 var server = http.createServer(app);
 ioConnect(server)
 
@@ -51,4 +54,3 @@ server.listen(8080,getIPAdress(), function () {
     console.log('✡✡✡✡✡✡✡✡✡✡✡✡✡');
 });
 readFile(uploadApi,app);
-resApi(app);
