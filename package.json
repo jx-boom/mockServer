@@ -1,0 +1,15 @@
+{
+  "name": "readfile",
+  "version": "1.0.0",
+  "description": "mock server",
+  "main": "http.js",
+  "scripts": {
+    "start": "node http.js"
+  },
+  "author": "Xjing",
+  "license": "ISC",
+  "dependencies": {
+    "formidable": "^1.1.1",
+    "socket.io": "^2.0.4"
+  }
+}

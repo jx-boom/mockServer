@@ -1,0 +1,150 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>使用Swiper制作webapp菜单栏切换</title>
+    <meta name="viewport" content="width=100%; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <!--<script src="//cdn.bootcss.com/Swiper/3.3.1/js/swiper.jquery.min.js"></script>-->
+    <script type="text/javascript" src="js/swiper-3.4.0.jquery.min.js" ></script>
+    <!--<link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/Swiper/3.3.1/css/swiper.min.css">-->
+    <link rel="stylesheet" href="css/swiper-3.2.7.min.css" />
+    <style>
+        body {
+            min-width: 320px;
+            max-width: 640px;
+            margin: 0 auto;
+            color: #333;
+            padding: 0;
+            font-family: "Microsoft Yahei";
+            text-align: center;
+        }
+        .container {
+            /*width: 100%;*/
+            border: 1px solid #ccc;
+        }
+        .swiper1 {
+            width: 100%;
+        }
+        .swiper1 .selected {
+            color: #ec5566;
+            border-bottom: 2px solid #ec5566;
+        }
+        .swiper1 .swiper-slide {
+            text-align: center;
+            font-size: 16px;
+            height: 50px;
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .swiper2 {
+            width: 100%;
+        }
+        .swiper2 .swiper-slide {
+            height: calc(100vh - 50px);
+            background-color: #ccc;
+            color: #fff;
+            text-align: center;
+            box-sizing: border-box !important;
+            overflow-x: hidden !important;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="swiper-container swiper1">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide selected">推荐</div>
+            <div class="swiper-slide">菜单 2</div>
+            <div class="swiper-slide">菜单 3</div>
+            <div class="swiper-slide">菜单 4</div>
+            <div class="swiper-slide">菜单 5</div>
+            <div class="swiper-slide">菜单 6</div>
+            <div class="swiper-slide">菜单 7</div>
+            <div class="swiper-slide">菜单 8</div>
+            <div class="swiper-slide">菜单 9</div>
+            <div class="swiper-slide">菜单 10</div>
+        </div>
+    </div>
+    <!-- swiper2 -->
+    <div class="swiper-container swiper2">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide swiper-no-swiping">
+                <div style="width: 100%;height: 100%;background-color: gainsboro;">上面导航栏可以滑动</div>
+            </div>
+            <div class="swiper-slide swiper-no-swiping">上面导航栏可以滑动2222</div>
+            <div class="swiper-slide swiper-no-swiping">内容 213213123</div>
+            <div class="swiper-slide swiper-no-swiping">内容 ressssssss</div>
+            <div class="swiper-slide swiper-no-swiping">内容 ffffffffffff</div>
+            <div class="swiper-slide swiper-no-swiping">内容 bbbbbbbbbbbbbbbbbvb</div>
+            <div class="swiper-slide swiper-no-swiping">内容 bvcccccccccccbvb</div>
+            <div class="swiper-slide swiper-no-swiping">内容 sdasdssssss</div>
+            <div class="swiper-slide swiper-no-swiping">内容 oiouiouioiuoiuo</div>
+            <div class="swiper-slide swiper-no-swiping">内容 m,jnkjhkhgjghjugh</div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(function() {
+        function setCurrentSlide(ele, index) {
+            $(".swiper1 .swiper-slide").removeClass("selected");
+            ele.addClass("selected");
+            //swiper1.initialSlide=index;
+        }
+
+        var swiper1 = new Swiper('.swiper1', {
+//					设置slider容器能够同时显示的slides数量(carousel模式)。
+//					可以设置为number或者 'auto'则自动根据slides的宽度来设定数量。
+//					loop模式下如果设置为'auto'还需要设置另外一个参数loopedSlides。
+            slidesPerView: 5.5,
+            paginationClickable: true,//此参数设置为true时，点击分页器的指示点分页器会控制Swiper切换。
+            spaceBetween: 10,//slide之间的距离（单位px）。
+            freeMode: true,//默认为false，普通模式：slide滑动时只滑动一格，并自动贴合wrapper，设置为true则变为free模式，slide会根据惯性滑动且不会贴合。
+            loop: false,//是否可循环
+            onTab: function(swiper) {
+                var n = swiper1.clickedIndex;
+            }
+        });
+        swiper1.slides.each(function(index, val) {
+            var ele = $(this);
+            ele.on("click", function() {
+                setCurrentSlide(ele, index);
+                swiper2.slideTo(index, 500, false);
+                //mySwiper.initialSlide=index;
+            });
+        });
+
+        var swiper2 = new Swiper('.swiper2', {
+            //freeModeSticky  设置为true 滑动会自动贴合
+            direction: 'horizontal',//Slides的滑动方向，可设置水平(horizontal)或垂直(vertical)。
+            loop: false,
+//					effect : 'fade',//淡入
+            //effect : 'cube',//方块
+            //effect : 'coverflow',//3D流
+//					effect : 'flip',//3D翻转
+            autoHeight: true,//自动高度。设置为true时，wrapper和container会随着当前slide的高度而发生变化。
+            onSlideChangeEnd: function(swiper) {  //回调函数，swiper从一个slide过渡到另一个slide结束时执行。
+                var n = swiper.activeIndex;
+                setCurrentSlide($(".swiper1 .swiper-slide").eq(n), n);
+                swiper1.slideTo(n, 500, false);
+            }
+        });
+    });
+</script>
+</body>
+
+</html>
