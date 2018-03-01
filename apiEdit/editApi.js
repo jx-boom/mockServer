@@ -1,6 +1,7 @@
 var querystring = require('querystring');
 var fs = require("fs");
 var uploadAPI =require('./uploadAPI');
+var path =require('path')
 function editApi(req,res,ApiList,app) {
     console.log('editApi');
     var body =''
@@ -17,7 +18,7 @@ function editApi(req,res,ApiList,app) {
             ApiList.add([body],function (err,apiList) {
            if(!err){
 
-               fs.writeFile(__dirname+'\\json\\api.json',JSON.stringify(apiList),{flag:'w',encoding:'utf-8',mode:'0666'},function(err){
+               fs.writeFile(path.resolve(__dirname, '..')+'\\json\\api.json',JSON.stringify(apiList),{flag:'w',encoding:'utf-8',mode:'0666'},function(err){
                    if(err){
                        res.writeHead(500, {'Content-Type': 'text/plain'});
                    }else{

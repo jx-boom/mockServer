@@ -1,10 +1,10 @@
 
-var ApiList = require('./urlList');
-var uploadFile =require('./uploadFile');
-var responseFileList= require('./responseFileList');
-var editApi =require('./editApi');
-var getAllApi =require('./getAllApi');
-var deleteApi =require('./deleteApi');
+var ApiList = require('./module/urlList');
+var uploadFile =require('./fileEdit/uploadFile');
+var responseFileList= require('./res/responseFileList');
+var editApi =require('./apiEdit/editApi');
+var getAllApi =require('./apiEdit/getAllApi');
+var deleteApi =require('./apiEdit/deleteApi');
 var fs = require('fs');
 
 
@@ -26,19 +26,19 @@ function response(app) {
     });
 
    app.get('/jquery.js',function (req,res) {
-         res.end(get_file_content(__dirname + '\\' + 'jquery.js'))
+         res.end(get_file_content(__dirname + '\\dist\\jquery.js'))
     });
    app.get('/socket.io.js',function (req,res) {
-         res.end(get_file_content(__dirname + '\\' + 'socket.io.js'))
+         res.end(get_file_content(__dirname + '\\dist\\socket.io.js'))
     });
    app.get('/check.png',function (req,res) {
-         res.end(get_file_content(__dirname + '\\' + 'check.png'))
+         res.end(get_file_content(__dirname + '\\dist\\check.png'))
     });
    app.get('/gt.png',function (req,res) {
-         res.end(get_file_content(__dirname + '\\' + 'gt.png'))
+         res.end(get_file_content(__dirname + '\\dist\\gt.png'))
     });
     app.get('/pp.png',function (req,res) {
-        res.end(get_file_content(__dirname + '\\' + 'pp.png'))
+        res.end(get_file_content(__dirname + '\\dist\\pp.png'))
     });
     app.get('/Ip.js',function (req,res) {
         console.log('Ip');
@@ -51,10 +51,10 @@ function response(app) {
 
     app.get('/swipper.css',function (req,res) {
         res.writeHead(200, { 'Content-Type': 'text/css' });
-        res.end(get_file_content(__dirname + '\\' + 'swipper.css'))
+        res.end(get_file_content(__dirname + '\\dist\\' + 'swipper.css'))
     });
     app.get('/swipper.js',function (req,res) {
-        res.end(get_file_content(__dirname + '\\' + 'swipper.js'))
+        res.end(get_file_content(__dirname + '\\dist\\' + 'swipper.js'))
     });
   app.post('/upFile',function (req,res) {
       console.log('上传文件请求');

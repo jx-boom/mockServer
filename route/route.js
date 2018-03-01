@@ -1,5 +1,5 @@
 var url = require('url');
-var urlList =require('./urlList');
+var urlList =require('../module/urlList');
 var packingRes = function (res) {
     console.log('packingRes');
     var end = res.end;
@@ -41,6 +41,7 @@ var route = function () {
     this._post = {};
     this._patch = {};
     this._delete = {};
+    this._put = {};
     /**
      * 处理请求
      *
@@ -150,6 +151,10 @@ var route = function () {
     };
 
     handle.get = function (string, callback) {
+        string=  addWith(string)
+        self._get[string] = callback;
+    };
+    handle.put = function (string, callback) {
         string=  addWith(string)
         self._get[string] = callback;
     };

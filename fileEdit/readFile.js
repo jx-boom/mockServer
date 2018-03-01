@@ -1,5 +1,5 @@
 var fs = require("fs");
-var apiList =require('./urlList')
+var apiList =require('../module/urlList')
 function readFile(uploadApi,app) {
     console.log('readFile');
     fs.readFile(__dirname+'\\json\\api.json','utf8',function(err, files){

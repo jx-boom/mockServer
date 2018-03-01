@@ -1,5 +1,5 @@
 var formidable = require('formidable');
-var addApi =require('./addApi');
+var addApi =require('../apiEdit/addApi');
 var fs = require("fs");
 fs.readdir(__dirname+"\\json",function(err, files){
     if (err||files.length==0) {
@@ -53,6 +53,7 @@ function uploadFile(req,res,app) {
                // var fileName =form.uploadDir+"/"+types[0]+"."+String(types[types.length-1]);
                 // console.log('重命名文件');
                 // fs.renameSync(file[1].path,fileName);//重命名文件，默认的文件名是带有一串编码的，我们要把它还原为它原先的名字。
+
                 addApi(app,fieldName,res);
             });
         });

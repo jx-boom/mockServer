@@ -1,6 +1,8 @@
  运行依赖  
-    **node： ^8.9.1**  
-    **npm： ^5.6.0**    
+  [![Build Status](https://img.shields.io/travis/webpro/dyson.svg?style=flat)](https://travis-ci.org/webpro/dyson)
+  [![npm package](https://img.shields.io/npm/v/dyson.svg?style=flat)](https://www.npmjs.com/package/dyson)
+  [![dependencies](https://img.shields.io/david/webpro/dyson.svg?style=flat)](https://david-dm.org/webpro/dyson)
+  ![npm version](https://img.shields.io/node/v/dyson.svg?style=flat)
     
  开始  
    

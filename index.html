@@ -4,22 +4,52 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="./swipper.css">
+    <title>fast mock</title>
+    <link rel="stylesheet" href="swipper.css">
 </head>
 <body>
 
 <style>
   /*<!---->*/
     /**/
+  .search-box{
+      width: 100%;
+      position: absolute;
+      top: 0;
+      height: 26px;
+      z-index: 2;
+  }
+  .search-box .inputserVal{
+      outline: none;
+      border: 0;
+      padding: 0;
+      width: 90%;
+      height: 100%;
+      font-size: 15px;
+      text-indent: 10px;
+      background-color: transparent;
+      border-bottom: 1px solid #ff5a00;
+
+  }
+  .search-box #search{
+      float: right;
+      margin-right: 10px;
+      background-color: #ff5a00;
+      font-size: 20px;
+      font-weight: 800;
+      width: 38px;
+      text-align: center;
+      border-radius: 11px;
+  }
   .method{
       border: 1px solid gray;
       border-radius: 15px ;
       margin: 0 5px;
       background-color: rgba(221, 255, 255, 0.51);
+      padding: 0 5px;
   }
   .pp{
-      background-image: url("./pp.png");
+      background-image: url("pp.png");
       width: 66px;
       height: 66px;
       position: absolute;
@@ -34,7 +64,7 @@
       display: none;
   }
   .check{
-      background: url(./check.png);
+      background: url(check.png);
       display: inline-block;
       float: right;
       width: 20px;
@@ -51,7 +81,14 @@
       display: inline-block;
       height: 60%;
   }
- #methodSelect, #contentTypeSelect{
+  #methodSelect{
+      width: 72px;
+      font-size: 20px;
+      position: absolute;
+      height: 100%;
+      border-top: 2px solid grey;
+  }
+ #contentTypeSelect{
       width: 100%;
       font-size: 20px;
   }
@@ -67,14 +104,19 @@
   }
   #urlBox{
       width: 100%;
+      position: relative;
+  }
+  #url{
+      text-indent: 72px;
   }
   #urlBox input{
       border-top-left-radius: 10px;
       width: 100%;
-      margin-top: 37px;
       padding-top: 2px;
       padding-bottom: 2px;
       font-size: 20px;
+      border-left: 0;
+      outline: none;
   }
 #logic{
     width: 100%;
@@ -89,7 +131,6 @@
   .container {
       width: 100%;
       height: 50%;
-      border: 1px solid #ccc;
   }
   .swiper1 {
       width: 100%;
@@ -145,7 +186,7 @@
       padding-top: 5%;
   }
     .gt{
-      background: url("./gt.png");
+      background: url(gt.png);
       display: inline-block;
       width: 15px;
       height: 15px;
@@ -153,42 +194,38 @@
       margin-left: 10px;
   }
     #sub{
-      position: absolute;
-      background-color: red;
-      z-index: 8;
-      left: -12%;
-      top: -9%;
-      width: 12%;
-      height: 12%;
-      border-radius: 14px;
-      opacity: 0;
-      cursor: pointer;
+        position: absolute;
+        background-color: red;
+        z-index: 8;
+        top: 85%;
+        height: 68px;
+        border-radius: 14px;
+        opacity: 0;
+        cursor: pointer;
+        width: 50px;
   }
    #myfiles{
        position: absolute;
-       left: 60%;
-       top: 73%;
+       left: 30%;
+       top: 74%;
        width: 50vmin;
        height: 20vmin;
        border-radius: 31px;
        vertical-align: top;
        cursor: pointer;
-       opacity: 0;
    }
     .uploadNurse::after{
         content: '';
         position: absolute;
-        width: 50%;
-        height: 55%;
+        width: 100%;
+        height: 100%;
+        border-radius: 14px;
         background-color: #a8ff00;
-        border-radius: 100%;
-        left: -7%;
-        top: -18%;
         animation: nurse-change 1s ease-out infinite;
     }
  #list{
      position: absolute;
-     top: 0;
+     top: 20px;
      left: 0;
      width: 87%;
      z-index: 2;
@@ -838,64 +875,55 @@
     }
     .nose,.uploadNurse {
         position: absolute;
-        width: 24%;
-        height: 24%;
-        background-color: #fff;
+        width: 50px;
+        height: 68px;
         z-index: 7;
-        left: -12%;
-        top: -3%;
-        border-bottom-left-radius: 50% 88%;
-        border-top-left-radius: 11% 43%;
-        -webkit-transform: rotate(12deg);
-        transform: rotate(12deg);
+        top: 85%;
+        border-radius: 14px;
+        background-color: red;
     }
-    .nose:after {
-        content: '';
-        position: absolute;
-        width: 50%;
-        height: 55%;
-        background-color: #ff0064;
-        border-radius: 100%;
-        left: -7%;
-        top: -18%;
-    }
+
 
 </style>
 
 <div id="backGround">
-    <div class="dog">
-        <div class="heart heart--1"></div>
-        <div class="heart heart--2"></div>
-        <div class="heart heart--3"></div>
-        <div class="heart heart--4"></div>
-        <div class="head">
-            <div class="year year--left"></div>
-            <div class="year year--right"></div>
+    <!--<div class="dog">-->
+        <!--<div class="heart heart&#45;&#45;1"></div>-->
+        <!--<div class="heart heart&#45;&#45;2"></div>-->
+        <!--<div class="heart heart&#45;&#45;3"></div>-->
+        <!--<div class="heart heart&#45;&#45;4"></div>-->
+        <!--<div class="head">-->
+            <!--<div class="year year&#45;&#45;left"></div>-->
+            <!--<div class="year year&#45;&#45;right"></div>-->
             <button id="sub" type="submit">132</button>
-            <div id="dogNurse" class="nose"></div>
-            <div class="face">
-                <div class="eye eye--left"></div>
-                <div class="eye eye--right"></div>
-                <div class="mouth"></div>
-            </div>
-        </div>
-        <div class="body">
-            <div class="cheast"></div>
-            <div class="back"></div>
-            <div class="legs">
-                <div class="legs__front legs__front--left"></div>
-                <div class="legs__front legs__front--right"></div>
-                <div class="legs__back legs__back--left"></div>
-                <div class="legs__back legs__back--right"></div>
-            </div>
-            <div id="pp" ></div>
-            <div class="tail"></div>
-        </div>
-    </div>
+           <!---->
+            <!--<div class="face">-->
+                <!--<div class="eye eye&#45;&#45;left"></div>-->
+                <!--<div class="eye eye&#45;&#45;right"></div>-->
+                <!--<div class="mouth"></div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="body">-->
+            <!--<div class="cheast"></div>-->
+            <!--<div class="back"></div>-->
+            <!--<div class="legs">-->
+                <!--<div class="legs__front legs__front&#45;&#45;left"></div>-->
+                <!--<div class="legs__front legs__front&#45;&#45;right"></div>-->
+                <!--<div class="legs__back legs__back&#45;&#45;left"></div>-->
+                <!--<div class="legs__back legs__back&#45;&#45;right"></div>-->
+            <!--</div>-->
+            <!--<div id="pp" ></div>-->
+            <!--<div class="tail"></div>-->
+        <!--</div>-->
+    <!--</div>-->
 
-
+    <div id="dogNurse" class="nose"></div>
 </div>
 <div id="apilist">
+   <div class="search-box">
+       <input type="text" class="inputserVal">
+   <div id="search">搜</div>
+   </div>
     <ul id="list"></ul>
 </div>
 
@@ -903,7 +931,13 @@
     <div class="right">
         <div id="editApiBox">
         <div id="urlBox">
-            <input id="url" type="text">
+            <select id="methodSelect">
+                <option value="post">post</option>
+                <option value="get">get</option>
+                <option value="delete">delete</option>
+                <option value="patch">patch</option>
+                <option value="put">patch</option>
+            </select>   <input id="url" type="text">
         </div>
 
         <select id="contentTypeSelect">
@@ -913,12 +947,7 @@
             <option value="multipart/form-data">multipart/form-data</option>
         </select>
 
-        <select id="methodSelect">
-            <option value="post">post</option>
-            <option value="get">get</option>
-            <option value="delete">delete</option>
-            <option value="patch">patch</option>
-        </select>
+
         <textarea name="" id="logic" cols="30" rows="10"></textarea>
             <div class="container">
                 <div class="swiper-container swiper1">
@@ -955,10 +984,11 @@
 </div></div>
 </body>
 <script src="socket.io.js"></script>
-<script src="./jquery.js"></script>
-<script src="./swipper.js"></script>
+<script src="jquery.js"></script>
+<script src="swipper.js"></script>
 <script src="./Ip.js"> </script>
 <script>
+ var list;
   var ip= getIp();
      $('#addTip').click( function () {
         var list =$('#tipList').children();
@@ -1017,6 +1047,7 @@
         xhr.onload = function (e) {
         if(this.status == 200){
             console.log('vvvv');
+            list= JSON.parse(e.target.response).list
             renderApiList(JSON.parse(e.target.response).list,'c')
             $("#dogNurse").attr("class","nose");
         }else{
@@ -1055,10 +1086,7 @@
 
       })
   });
-
-
-
-     $('#list').on('click','.text', function(e){
+ $('#list').on('click','.text', function(e){
      var api=     $(e.target).parent(".api").attr("api");
      if(checkDom){
          checkDom.addClass("hide");
@@ -1094,7 +1122,16 @@
 
          })
      });
+ $('#search').on('click',function (e) {
+     var renderList= {};
+    for(var api in list){
+        if(api.indexOf($('.inputserVal').val())!=-1){
+            renderList[api]=list[api];
+        }
+    }
+    renderApiList(renderList,'f')
 
+ })  
 
 </script>
 <script>
@@ -1151,6 +1188,7 @@
             }
             console.log('this is re');
             $("#dogNurse").attr("class","nose");
+            list =JSON.parse(res);
             renderApiList(JSON.parse(res),'g')
         })
     });
@@ -1163,6 +1201,7 @@
     socket.on("changeList", function(reqIp) {
         console.log(reqIp.ip);
         $.get('http://'+ip+':8080/apiList',function (res) {
+          list = JSON.parse(res);
             renderApiList(JSON.parse(res))
         })
 

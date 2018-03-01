@@ -1,8 +1,8 @@
 var http =require('http');
 var resApi =require('./response');
-var route =require('./route');
-var readFile =require('./readFile');
-var uploadApi =require('./uploadApi');
+var route =require('./route/route');
+var readFile =require('./fileEdit/readFile');
+var uploadApi =require('./apiEdit/uploadAPI');
 var os = require('os');
 var fs =require('fs');
 var cp  = require('child_process');
