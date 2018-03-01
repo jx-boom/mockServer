@@ -12,6 +12,12 @@
 <style>
   /*<!---->*/
     /**/
+  .method{
+      border: 1px solid gray;
+      border-radius: 15px ;
+      margin: 0 5px;
+      background-color: rgba(221, 255, 255, 0.51);
+  }
   .pp{
       background-image: url("./pp.png");
       width: 66px;
@@ -1027,7 +1033,7 @@
     function renderApiList(json,b) {
         var DOM='';
         for( var api in json){
-             DOM += '<li   api='+api+'  class=\'api\'><b class="text">'+json[api]['realName']+'</b><i class="gt"></i> <b class="check hide"></b></li>'
+             DOM += '<li   api='+api+'  class=\'api\'><b class="text">'+json[api]['realName']+'</b> <span class="method">'+json[api]['method']+'</span><i class="gt"></i> <b class="check hide"></b></li>'
         };
         $("#list").html(DOM)
 
