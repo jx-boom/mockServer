@@ -7,948 +7,1052 @@
     <title>fast mock</title>
     <link rel="stylesheet" href="swipper.css">
 </head>
+
 <body>
 
-<style>
-  /*<!---->*/
-    /**/
-  .search-box{
-      width: 100%;
-      position: absolute;
-      top: 0;
-      height: 26px;
-      z-index: 2;
-  }
-  .search-box .inputserVal{
-      outline: none;
-      border: 0;
-      padding: 0;
-      width: 90%;
-      height: 100%;
-      font-size: 15px;
-      text-indent: 10px;
-      background-color: transparent;
-      border-bottom: 1px solid #ff5a00;
+    <style>
+        /*<!---->*/
 
-  }
-  .search-box #search{
-      float: right;
-      margin-right: 10px;
-      background-color: #ff5a00;
-      font-size: 20px;
-      font-weight: 800;
-      width: 38px;
-      text-align: center;
-      border-radius: 11px;
-  }
-  .method{
-      border: 1px solid gray;
-      border-radius: 15px ;
-      margin: 0 5px;
-      background-color: rgba(221, 255, 255, 0.51);
-      padding: 0 5px;
-  }
-  .pp{
-      background-image: url("pp.png");
-      width: 66px;
-      height: 66px;
-      position: absolute;
-      right: -57px;
-      top: 70%;
-      -webkit-background-size: 100% 100%;
-      background-size: 100% 100%;
-    /*transform:  rotateZ(-90deg) translateY(-46px) translateX(80px);*/
-      animation: pp-down 1s cubic-bezier(.19,.27,.29,.95);
-  }
-  .hidepp{
-      display: none;
-  }
-  .check{
-      background: url(check.png);
-      display: inline-block;
-      float: right;
-      width: 20px;
-      height: 20px;
-      background-size: 100% 100%;
-  }
-  .hide{
-      display: none;
-  }
-  .api{
-      cursor: pointer;
-  }
-  #editApiBox{
-      display: inline-block;
-      height: 60%;
-  }
-  #methodSelect{
-      width: 72px;
-      font-size: 20px;
-      position: absolute;
-      height: 100%;
-      border-top: 2px solid grey;
-  }
- #contentTypeSelect{
-      width: 100%;
-      font-size: 20px;
-  }
-  #addTip{
-      float: left;
-      font-size: 20px;
-      font-weight: 800;
-      background-color: #ff5a00;
-      width: 30px;
-      text-align: center;
-      border-radius: 15px;
-      cursor: pointer;
-  }
-  #urlBox{
-      width: 100%;
-      position: relative;
-  }
-  #url{
-      text-indent: 72px;
-  }
-  #urlBox input{
-      border-top-left-radius: 10px;
-      width: 100%;
-      padding-top: 2px;
-      padding-bottom: 2px;
-      font-size: 20px;
-      border-left: 0;
-      outline: none;
-  }
-#logic{
-    width: 100%;
-    height: 100px;
-    font-size: 20px;
-}
-.swiper-slide textarea{
-    width: 100%;
-    height: 100%;
-    font-size: 20px;
-}
-  .container {
-      width: 100%;
-      height: 50%;
-  }
-  .swiper1 {
-      width: 100%;
-      background-color: #e9e1a6;
-  }
-  .swiper1 .selected {
-      color: #ec5566;
-      border-bottom: 2px solid #ec5566;
-  }
-  .swiper1 .swiper-slide {
-      text-align: center;
-      font-size: 16px;
-      height: 24px;
-      /* Center slide text vertically */
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: -webkit-flex;
-      display: flex;
-      -webkit-box-pack: center;
-      -ms-flex-pack: center;
-      -webkit-justify-content: center;
-      justify-content: center;
-      -webkit-box-align: center;
-      -ms-flex-align: center;
-      -webkit-align-items: center;
-      align-items: center;
-      cursor: pointer;
-  }
-  .swiper2 {
-      width: 100%;
-      border-bottom-left-radius: 10px;
-      width: 100%;
-      border-bottom-left-radius: 10px;
-      border-bottom: 3px solid #e9e1a64d;
-      border-left: 3px solid #e9e1a64d
-  }
-  .swiper2 .swiper-slide {
-      height: calc(100vh - 50px);
-      background-color: #c3bace;
-      color: #fff;
-      text-align: center;
-      box-sizing: border-box !important;
-      overflow-x: hidden !important;
-  }
+        /**/
 
-    /*//////*/
-  .right{
-      width: 65%;
-      position: absolute;
-      top: 0;
-      right: 0;
-      height: 100%;
-      padding-top: 5%;
-  }
-    .gt{
-      background: url(gt.png);
-      display: inline-block;
-      width: 15px;
-      height: 15px;
-      background-size: 100% 100%;
-      margin-left: 10px;
-  }
-    #sub{
-        position: absolute;
-        background-color: red;
-        z-index: 8;
-        top: 85%;
-        height: 68px;
-        border-radius: 14px;
-        opacity: 0;
-        cursor: pointer;
-        width: 50px;
-  }
-   #myfiles{
-       position: absolute;
-       left: 30%;
-       top: 74%;
-       width: 50vmin;
-       height: 20vmin;
-       border-radius: 31px;
-       vertical-align: top;
-       cursor: pointer;
-   }
-    .uploadNurse::after{
-        content: '';
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        border-radius: 14px;
-        background-color: #a8ff00;
-        animation: nurse-change 1s ease-out infinite;
-    }
- #list{
-     position: absolute;
-     top: 20px;
-     left: 0;
-     width: 87%;
-     z-index: 2;
- }
-  #list li{
-      width: 100%;
-      word-break: break-all;
-  }
-   #apilist{
-       width: 32%;
-       background-color: #e9e1a6;
-       height: 98%;
-       position: absolute;
-       top: 0;
-       left: 0;
-       z-index: 2;
-       border-bottom-right-radius: 18px
-   }
-   #apilist::before{
-       content: '';
-       width: 102%;
-       height: 100%;
-       top: 10px;
-       left: 0;
-       background-color: #e9e1a64d;
-       display: block;
-       position: relative;
-       z-index: 1;
-       border-radius: 15px;
-   }
-   #apilist::after{
-       content: '';
-       width: 100%;
-       height: 100%;
-       top: 0;
-       left: 0;
-       background-color: #e9e1a6;
-       display: block;
-       position: absolute;
-       z-index: 1;
-       border-radius: 7px;
-   }
-    html, body {
-      overflow: hidden;
-        background-repeat: no-repeat;
-        background-size: contain;
-        background-position: center center;
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-        flex-direction: column;
-        -webkit-box-pack: center;
-        -ms-flex-pack: center;
-        justify-content: center;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-        background-color: #620ca9;
-        background-image: url("http://svgshare.com/i/17a.svg");
-        background-size: fill;
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-    }
+        .swiper-container {
+            overflow: scroll;
+        }
 
-    .dog {
-        position: absolute;
-        top: 73%;
-        width: 50vmin;
-        height: 40vmin;
-        z-index: 200;
-        left: 60%;
-    }
+        .search-box {
+            width: 100%;
+            position: absolute;
+            top: 0;
+            height: 26px;
+            z-index: 2;
+        }
 
-    .heart {
-        position: absolute;
-        width: 6%;
-        height: 7%;
-        background-color: #ff4ea0;
-        border-bottom-right-radius: 23%;
-        opacity: 0;
-        -webkit-animation-fill-mode: both;
-        animation-fill-mode: both;
-        display: none;
-    }
-    @-webkit-keyframes heart-beat {
-        0% {
-            -webkit-transform: scale(0.75) rotate(35deg);
-            transform: scale(0.75) rotate(35deg);
-            opacity: 1;
+        .search-box .inputserVal {
+            outline: none;
+            border: 0;
+            padding: 0;
+            width: 90%;
+            height: 100%;
+            font-size: 15px;
+            text-indent: 10px;
+            background-color: transparent;
+            border-bottom: 1px solid #ff5a00;
+
         }
-        5%, 15%, 25% {
-            -webkit-transform: scale(1) rotate(35deg);
-            transform: scale(1) rotate(35deg);
+
+        .search-box #search {
+            float: right;
+            margin-right: 10px;
+            background-color: #ff5a00;
+            font-size: 20px;
+            font-weight: 800;
+            width: 38px;
+            text-align: center;
+            border-radius: 11px;
         }
-        10%, 20% {
-            -webkit-transform: scale(0.75) rotate(35deg);
-            transform: scale(0.75) rotate(35deg);
+
+        .method {
+            border: 1px solid gray;
+            border-radius: 15px;
+            margin: 0 5px;
+            background-color: rgba(221, 255, 255, 0.51);
+            padding: 0 5px;
         }
-        70% {
-            opacity: 1;
+
+        .pp {
+            background-image: url("pp.png");
+            width: 66px;
+            height: 66px;
+            position: absolute;
+            right: -57px;
+            top: 70%;
+            -webkit-background-size: 100% 100%;
+            background-size: 100% 100%;
+            /*transform:  rotateZ(-90deg) translateY(-46px) translateX(80px);*/
+            animation: pp-down 1s cubic-bezier(.19, .27, .29, .95);
         }
-        100% {
-            -webkit-transform: rotate(35deg) translateY(-10px) translateX(-10px);
-            transform: rotate(35deg) translateY(-10px) translateX(-10px);
+
+        .hidepp {
+            display: none;
+        }
+
+        .check {
+            background: url(check.png);
+            display: inline-block;
+            float: right;
+            width: 20px;
+            height: 20px;
+            background-size: 100% 100%;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .api {
+            cursor: pointer;
+        }
+
+        #editApiBox {
+            display: inline-block;
+            height: 60%;
+        }
+
+        #methodSelect {
+            width: 72px;
+            font-size: 20px;
+            position: absolute;
+            height: 100%;
+            border-top: 2px solid grey;
+        }
+
+        #contentTypeSelect {
+            width: 100%;
+            font-size: 20px;
+        }
+
+        #addTip {
+            float: left;
+            font-size: 20px;
+            font-weight: 800;
+            background-color: #ff5a00;
+            width: 30px;
+            text-align: center;
+            border-radius: 15px;
+            cursor: pointer;
+        }
+
+        #urlBox {
+            width: 100%;
+            position: relative;
+        }
+
+        #url {
+            text-indent: 72px;
+        }
+
+        #urlBox input {
+            border-top-left-radius: 10px;
+            width: 100%;
+            padding-top: 2px;
+            padding-bottom: 2px;
+            font-size: 20px;
+            border-left: 0;
+            outline: none;
+        }
+
+        #logic {
+            width: 100%;
+            height: 100px;
+            font-size: 20px;
+        }
+
+        .swiper-slide textarea {
+            width: 100%;
+            height: 100%;
+            font-size: 20px;
+        }
+
+        .container {
+            width: 100%;
+            height: 50%;
+        }
+
+        .swiper1 {
+            width: 100%;
+            background-color: #e9e1a6;
+        }
+
+        .swiper1 .selected {
+            color: #ec5566;
+            border-bottom: 2px solid #ec5566;
+        }
+
+        .swiper1 .swiper-slide {
+            text-align: center;
+            font-size: 16px;
+            height: 24px;
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .swiper2 {
+            width: 100%;
+            border-bottom-left-radius: 10px;
+            width: 100%;
+            border-bottom-left-radius: 10px;
+            border-bottom: 3px solid #e9e1a64d;
+            border-left: 3px solid #e9e1a64d
+        }
+
+        .swiper2 .swiper-slide {
+            height: calc(100vh - 50px);
+            background-color: #c3bace;
+            color: #fff;
+            text-align: center;
+            box-sizing: border-box !important;
+            overflow-x: hidden !important;
+        }
+
+        /*//////*/
+
+        .right {
+            width: 65%;
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+            padding-top: 5%;
+        }
+
+        .gt {
+            background: url(gt.png);
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            background-size: 100% 100%;
+            margin-left: 10px;
+        }
+
+        #sub {
+            position: absolute;
+            background-color: red;
+            z-index: 8;
+            top: 85%;
+            height: 68px;
+            border-radius: 14px;
             opacity: 0;
+            cursor: pointer;
+            width: 50px;
         }
-    }
-    @-webkit-keyframes nurse-change {
-        0% {
+
+        #myfiles {
+            position: absolute;
+            left: 30%;
+            top: 74%;
+            width: 50vmin;
+            height: 20vmin;
+            border-radius: 31px;
+            vertical-align: top;
+            cursor: pointer;
+        }
+
+        .uploadNurse::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 14px;
             background-color: #a8ff00;
+            animation: nurse-change 1s ease-out infinite;
         }
-        20% {
-            background-color: #94c498;
+
+        #list {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            width: 87%;
+            z-index: 2;
         }
-        40% {
-            background-color: #a8ff00;
+
+        #list li {
+            width: 100%;
+            word-break: break-all;
         }
-        60% {
-            background-color: #94c498;
+
+        #apilist {
+            width: 32%;
+            background-color: #e9e1a6;
+            height: 98%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            border-bottom-right-radius: 18px
         }
-        80% {
-            background-color: #a8ff00;
+
+        #apilist::before {
+            content: '';
+            width: 102%;
+            height: 100%;
+            top: 10px;
+            left: 0;
+            background-color: #e9e1a64d;
+            display: block;
+            position: relative;
+            z-index: 1;
+            border-radius: 15px;
         }
-        100% {
-            background-color: #40ff43;
+
+        #apilist::after {
+            content: '';
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: #e9e1a6;
+            display: block;
+            position: absolute;
+            z-index: 1;
+            border-radius: 7px;
         }
-    }
-    @keyframes heart-beat {
-        0% {
-            -webkit-transform: scale(0.75) rotate(35deg);
-            transform: scale(0.75) rotate(35deg);
-            opacity: 1;
+
+        html,
+        body {
+            overflow: hidden;
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center center;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            background-color: #620ca9;
+            background-image: url("http://svgshare.com/i/17a.svg");
+            background-size: fill;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
         }
-        5%, 15%, 25% {
-            -webkit-transform: scale(1) rotate(35deg);
-            transform: scale(1) rotate(35deg);
+
+        .dog {
+            position: absolute;
+            top: 73%;
+            width: 50vmin;
+            height: 40vmin;
+            z-index: 200;
+            left: 60%;
         }
-        10%, 20% {
-            -webkit-transform: scale(0.75) rotate(35deg);
-            transform: scale(0.75) rotate(35deg);
-        }
-        70% {
-            opacity: 1;
-        }
-        100% {
-            -webkit-transform: rotate(35deg) translateY(-10px) translateX(-10px);
-            transform: rotate(35deg) translateY(-10px) translateX(-10px);
+
+        .heart {
+            position: absolute;
+            width: 6%;
+            height: 7%;
+            background-color: #ff4ea0;
+            border-bottom-right-radius: 23%;
             opacity: 0;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+            display: none;
         }
-    }
-  @keyframes pp-down {
-      0% {
-          -webkit-transform: rotateZ(-90deg) translateY(-46px) translateX(80px);
-          transform: rotate(-90deg) translateY(-46px) translateX(80px);
-          opacity: 0;
-      }
-      40% {
-          -webkit-transform: rotateZ(-90deg) translateY(-20px) translateX(80px);
-          transform: rotate(-90deg) translateY(-20px) translateX(80px);
-      }
-      80% {
-          -webkit-transform: rotate(30deg) translateY(-20px);
-          transform: rotate(0deg) translateY(0px);
-      }
 
-      100% {
-          -webkit-transform: rotate(0deg) translateY(-20px);
-          transform: rotate(0deg) translateY(0px) ;
-          opacity: 1;
-      }
-  }
-    .heart--1 {
-        top: -25%;
-        left: 15%;
-        -webkit-animation: heart-beat 2s ease-out infinite 1.5s;
-        animation: heart-beat 2s ease-out infinite 1.5s;
-    }
-    .heart--2 {
-        top: -36%;
-        left: 7%;
-        -webkit-animation: heart-beat 2s ease-out infinite 1s;
-        animation: heart-beat 2s ease-out infinite 1s;
-    }
-    .heart--3 {
-        top: -48%;
-        left: 14%;
-        -webkit-animation: heart-beat 2s ease-out infinite 0.5s;
-        animation: heart-beat 2s ease-out infinite 0.5s;
-    }
-    .heart--4 {
-        top: -53%;
-        left: -3%;
-        -webkit-animation: heart-beat 2s ease-out infinite;
-        animation: heart-beat 2s ease-out infinite;
-    }
+        @-webkit-keyframes heart-beat {
+            0% {
+                -webkit-transform: scale(0.75) rotate(35deg);
+                transform: scale(0.75) rotate(35deg);
+                opacity: 1;
+            }
+            5%,
+            15%,
+            25% {
+                -webkit-transform: scale(1) rotate(35deg);
+                transform: scale(1) rotate(35deg);
+            }
+            10%,
+            20% {
+                -webkit-transform: scale(0.75) rotate(35deg);
+                transform: scale(0.75) rotate(35deg);
+            }
+            70% {
+                opacity: 1;
+            }
+            100% {
+                -webkit-transform: rotate(35deg) translateY(-10px) translateX(-10px);
+                transform: rotate(35deg) translateY(-10px) translateX(-10px);
+                opacity: 0;
+            }
+        }
 
-    .heart:before,
-    .heart:after {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        content: '';
-        border-radius: 50%;
-        background-color: #ff4ea0;
-    }
+        @-webkit-keyframes nurse-change {
+            0% {
+                background-color: #a8ff00;
+            }
+            20% {
+                background-color: #94c498;
+            }
+            40% {
+                background-color: #a8ff00;
+            }
+            60% {
+                background-color: #94c498;
+            }
+            80% {
+                background-color: #a8ff00;
+            }
+            100% {
+                background-color: #40ff43;
+            }
+        }
 
-    .heart:after {
-        bottom: 0px;
-        left: -53%;
-    }
+        @keyframes heart-beat {
+            0% {
+                -webkit-transform: scale(0.75) rotate(35deg);
+                transform: scale(0.75) rotate(35deg);
+                opacity: 1;
+            }
+            5%,
+            15%,
+            25% {
+                -webkit-transform: scale(1) rotate(35deg);
+                transform: scale(1) rotate(35deg);
+            }
+            10%,
+            20% {
+                -webkit-transform: scale(0.75) rotate(35deg);
+                transform: scale(0.75) rotate(35deg);
+            }
+            70% {
+                opacity: 1;
+            }
+            100% {
+                -webkit-transform: rotate(35deg) translateY(-10px) translateX(-10px);
+                transform: rotate(35deg) translateY(-10px) translateX(-10px);
+                opacity: 0;
+            }
+        }
 
-    .heart:before {
-        top: -53%;
-        right: 0px;
-        -webkit-transform: rotate(45deg);
-        transform: rotate(45deg);
-    }
+        @keyframes pp-down {
+            0% {
+                -webkit-transform: rotateZ(-90deg) translateY(-46px) translateX(80px);
+                transform: rotate(-90deg) translateY(-46px) translateX(80px);
+                opacity: 0;
+            }
+            40% {
+                -webkit-transform: rotateZ(-90deg) translateY(-20px) translateX(80px);
+                transform: rotate(-90deg) translateY(-20px) translateX(80px);
+            }
+            80% {
+                -webkit-transform: rotate(30deg) translateY(-20px);
+                transform: rotate(0deg) translateY(0px);
+            }
 
-    .body {
-        position: absolute;
-        width: 100%;
-        height: 50%;
-        background-color: #f79e38;
-        border-top-right-radius: 17% 40%;
-        border-top-left-radius: 25%;
-        border-bottom-right-radius: 5% 13%;
-        border-bottom-left-radius: 30% 40%;
-        z-index: 3;
-    }
+            100% {
+                -webkit-transform: rotate(0deg) translateY(-20px);
+                transform: rotate(0deg) translateY(0px);
+                opacity: 1;
+            }
+        }
 
-    .cheast {
-        position: absolute;
-        width: 45%;
-        height: 100%;
-        background-color: #fff;
-        border-top-right-radius: 17% 40%;
-        border-top-left-radius: 25%;
-        border-bottom-right-radius: 40% 40%;
-        border-bottom-left-radius: 40% 40%;
-        z-index: 4;
-    }
-    .cheast:after, .cheast:before {
-        position: absolute;
-        content: '';
-        width: 7%;
-        height: 55%;
-        border-radius: 39%;
-        background-color: #fff;
-    }
-    .cheast:after {
-        top: 36%;
-        left: 3%;
-        -webkit-transform: rotate(-1deg);
-        transform: rotate(-1deg);
-    }
-    .cheast:before {
-        top: 19%;
-        left: -4%;
-    }
+        .heart--1 {
+            top: -25%;
+            left: 15%;
+            -webkit-animation: heart-beat 2s ease-out infinite 1.5s;
+            animation: heart-beat 2s ease-out infinite 1.5s;
+        }
 
-    .head {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        z-index: 4;
-        -webkit-animation: dog-head 1s ease-out infinite;
-        animation: dog-head 1s ease-out infinite;
-        -webkit-animation-fill-mode: both;
-        animation-fill-mode: both;
-        -webkit-animation-direction: alternate;
-        animation-direction: alternate;
-    }
-    @-webkit-keyframes dog-head {
-        to {
-            -webkit-transform: translateX(-3px) rotate(3deg);
-            transform: translateX(-3px) rotate(3deg);
+        .heart--2 {
+            top: -36%;
+            left: 7%;
+            -webkit-animation: heart-beat 2s ease-out infinite 1s;
+            animation: heart-beat 2s ease-out infinite 1s;
         }
-    }
-    @keyframes dog-head {
-        to {
-            -webkit-transform: translateX(-3px) rotate(3deg);
-            transform: translateX(-3px) rotate(3deg);
-        }
-    }
-    .tail {
-        position: absolute;
-        top: -14%;
-        left: 92%;
-        width: 10%;
-        height: 45%;
-        background-color: #f79e38;
-        border-top-right-radius: 30% 30%;
-        border-top-left-radius: 40% 30%;
-        border-bottom-right-radius: 30% 40%;
-        border-bottom-left-radius: 40% 40%;
-        z-index: 2;
-        -webkit-transform: rotate(20deg);
-        transform: rotate(20deg);
-        -webkit-animation: dog-tail 170ms ease-out infinite;
-        animation: dog-tail 170ms ease-out infinite;
-    }
-    @-webkit-keyframes dog-tail {
-        from, to {
-            -webkit-transform: rotate(10deg);
-            transform: rotate(10deg);
-        }
-        50%, 60% {
-            -webkit-transform: rotate(70deg) translateX(10px) translateY(2px);
-            transform: rotate(70deg) translateX(10px) translateY(2px);
-        }
-    }
-    @keyframes dog-tail {
-        from, to {
-            -webkit-transform: rotate(10deg);
-            transform: rotate(10deg);
-        }
-        50%, 60% {
-            -webkit-transform: rotate(70deg) translateX(10px) translateY(2px);
-            transform: rotate(70deg) translateX(10px) translateY(2px);
-        }
-    }
-    .tail:before {
-        position: absolute;
-        content: '';
-        top: -8%;
-        left: -7%;
-        width: 100%;
-        height: 50%;
-        background-color: #f79e38;
-        border-radius: 50%;
-        -webkit-animation: dog-tail-before 160ms ease-out infinite;
-        animation: dog-tail-before 160ms ease-out infinite;
-    }
-    @-webkit-keyframes dog-tail-before {
-        from, to {
-            -webkit-transform: translateX(0);
-            transform: translateX(0);
-        }
-        50% {
-            -webkit-transform: translateX(3px);
-            transform: translateX(3px);
-        }
-    }
-    @keyframes dog-tail-before {
-        from, to {
-            -webkit-transform: translateX(0);
-            transform: translateX(0);
-        }
-        50% {
-            -webkit-transform: translateX(3px);
-            transform: translateX(3px);
-        }
-    }
-    .legs {
-        position: absolute;
-        top: 97%;
-        left: 0;
-        width: 100%;
-        height: 30%;
-        z-index: 2;
-        -webkit-animation: dog-legs 1s ease-out infinite 1.5s;
-        animation: dog-legs 1s ease-out infinite 1.5s;
-        -webkit-animation-fill-mode: both;
-        animation-fill-mode: both;
-        -webkit-animation-direction: alternate;
-        animation-direction: alternate;
-    }
-    @-webkit-keyframes dog-legs {
-        from {
-            -webkit-transform: translateY(-1px);
-            transform: translateY(-1px);
-        }
-        to {
-            -webkit-transform: translateY(0px);
-            transform: translateY(0px);
-        }
-    }
-    @keyframes dog-legs {
-        from {
-            -webkit-transform: translateY(-1px);
-            transform: translateY(-1px);
-        }
-        to {
-            -webkit-transform: translateY(0px);
-            transform: translateY(0px);
-        }
-    }
-    .legs__front, .legs__back {
-        width: 10%;
-        height: 100%;
-        background-color: #f79e38;
-        position: absolute;
-        border-bottom-right-radius: 100%;
-        border-bottom-left-radius: 100%;
-    }
-    .legs__front:after, .legs__back:after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        width: 100%;
-        height: 49%;
-        background-color: #fff;
-        border-bottom-right-radius: 100%;
-        border-bottom-left-radius: 100%;
-    }
-    .legs__front--left {
-        left: 38%;
-        -webkit-transform: rotate(1deg);
-        transform: rotate(1deg);
-    }
-    .legs__front--right {
-        left: 20%;
-        -webkit-transform: rotate(-4deg);
-        transform: rotate(-4deg);
-    }
-    .legs__back--left {
-        left: 69%;
-        -webkit-transform: rotate(-7deg);
-        transform: rotate(-7deg);
-    }
-    .legs__back--right {
-        left: 85%;
-        -webkit-transform: rotate(2deg);
-        transform: rotate(2deg);
-    }
 
-    .face {
-        height: 40%;
-        width: 42%;
-        position: absolute;
-        top: -13%;
-        left: -3%;
-        background-color: #fff;
-        border-top-right-radius: 45% 50%;
-        border-top-left-radius: 35% 50%;
-        border-bottom-left-radius: 35% 21%;
-        z-index: 6;
-    }
-    .face:after, .face:before {
-        content: '';
-        position: absolute;
-        background-color: #f79e38;
-    }
-    .face:after {
-        width: 27%;
-        left: 7%;
-        height: 23%;
-        border-top-right-radius: 100% 100%;
-        border-bottom-left-radius: 49% 100%;
-        -webkit-transform: rotate(-64deg);
-        transform: rotate(-64deg);
-        top: -1%;
-        border-top-left-radius: 0% -20%;
-        border-bottom-right-radius: 52% 0%;
-        -webkit-box-shadow: rgba(0, 0, 0, 0.1) 2px -6px 11px 1px;
-        box-shadow: rgba(0, 0, 0, 0.1) 2px -6px 11px 1px;
-    }
-    .face:before {
-        width: 55%;
-        left: 42%;
-        top: 0%;
-        height: 35%;
-        border-radius: 23% 7% 16% 12%;
-        -webkit-transform: rotate(0deg) scaleX(-1);
-        transform: rotate(0deg) scaleX(-1);
-    }
+        .heart--3 {
+            top: -48%;
+            left: 14%;
+            -webkit-animation: heart-beat 2s ease-out infinite 0.5s;
+            animation: heart-beat 2s ease-out infinite 0.5s;
+        }
 
-    .eye {
-        width: 6%;
-        height: 6%;
-        position: absolute;
-        border-radius: 100%;
-        top: 24%;
-        background-color: #000;
-        z-index: 6;
-        -webkit-animation: dog-eye 1800ms infinite;
-        animation: dog-eye 1800ms infinite;
-    }
-    @-webkit-keyframes dog-eye {
-        from, to {
-            -webkit-animation-timing-function: step-end;
-            animation-timing-function: step-end;
-            opacity: 1;
+        .heart--4 {
+            top: -53%;
+            left: -3%;
+            -webkit-animation: heart-beat 2s ease-out infinite;
+            animation: heart-beat 2s ease-out infinite;
         }
-        50%, 55% {
-            -webkit-animation-timing-function: step-start;
-            animation-timing-function: step-start;
-            opacity: 0;
-        }
-    }
-    @keyframes dog-eye {
-        from, to {
-            -webkit-animation-timing-function: step-end;
-            animation-timing-function: step-end;
-            opacity: 1;
-        }
-        50%, 55% {
-            -webkit-animation-timing-function: step-start;
-            animation-timing-function: step-start;
-            opacity: 0;
-        }
-    }
-    .eye--left {
-        left: 27%;
-    }
-    .eye--right {
-        left: 46%;
-    }
 
-    .mouth {
-        background-color: transparent;
-        border-color: #000;
-        width: 44%;
-        border-style: solid;
-        border-width: 0.7vmin;
-        height: 48%;
-        z-index: 6;
-        position: absolute;
-        bottom: 35%;
-        left: 14%;
-        border-top-color: transparent;
-        border-bottom-left-radius: 72% 100%;
-        border-bottom-right-radius: 77% 100%;
-        border-right-color: transparent;
-        border-top-right-radius: 50%;
-        border-left-color: transparent;
-        -webkit-transform: rotate(-41deg);
-        transform: rotate(-41deg);
-    }
+        .heart:before,
+        .heart:after {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            content: '';
+            border-radius: 50%;
+            background-color: #ff4ea0;
+        }
 
-    .year {
-        position: absolute;
-    }
-    .year--left {
-        top: -40%;
-        left: 3%;
-        height: 47%;
-        width: 19%;
-        z-index: 1;
-        background-color: #e99036;
-        border-top-left-radius: 68% 100%;
-        border-top-right-radius: 100% 100%;
-        -webkit-transform-origin: bottom center;
-        transform-origin: bottom center;
-        -webkit-animation: left-year 1000ms ease-out infinite;
-        animation: left-year 1000ms ease-out infinite;
-        -webkit-animation-fill-mode: both;
-        animation-fill-mode: both;
-        -webkit-animation-direction: alternate;
-        animation-direction: alternate;
-    }
-    @-webkit-keyframes left-year {
-        from {
-            -webkit-transform: rotate(-26deg);
-            transform: rotate(-26deg);
+        .heart:after {
+            bottom: 0px;
+            left: -53%;
         }
-        25% {
-            -webkit-transform: rotate(-35deg);
-            transform: rotate(-35deg);
-        }
-        50% {
-            -webkit-transform: rotate(-26deg);
-            transform: rotate(-26deg);
-        }
-        to {
-            -webkit-transform: rotate(-40deg);
-            transform: rotate(-40deg);
-        }
-    }
-    @keyframes left-year {
-        from {
-            -webkit-transform: rotate(-26deg);
-            transform: rotate(-26deg);
-        }
-        25% {
-            -webkit-transform: rotate(-35deg);
-            transform: rotate(-35deg);
-        }
-        50% {
-            -webkit-transform: rotate(-26deg);
-            transform: rotate(-26deg);
-        }
-        to {
-            -webkit-transform: rotate(-40deg);
-            transform: rotate(-40deg);
-        }
-    }
-    .year--right {
-        top: -39%;
-        left: 19%;
-        height: 38%;
-        width: 18%;
-        z-index: 1;
-        background-color: #f79e38;
-        border-top-left-radius: 56% 100%;
-        border-top-right-radius: 100% 100%;
-        -webkit-transform-origin: bottom center;
-        transform-origin: bottom center;
-        border-bottom-right-radius: 14% 38%;
-        -webkit-animation: right-year 1000ms ease-out infinite;
-        animation: right-year 1000ms ease-out infinite;
-        -webkit-animation-fill-mode: both;
-        animation-fill-mode: both;
-        -webkit-animation-direction: alternate;
-        animation-direction: alternate;
-    }
-    @-webkit-keyframes right-year {
-        from {
-            -webkit-transform: rotate(-331deg);
-            transform: rotate(-331deg);
-        }
-        25% {
-            -webkit-transform: rotate(-320deg);
-            transform: rotate(-320deg);
-        }
-        50% {
-            -webkit-transform: rotate(-331deg);
-            transform: rotate(-331deg);
-        }
-        to {
-            -webkit-transform: rotate(-320deg);
-            transform: rotate(-320deg);
-        }
-    }
-    @keyframes right-year {
-        from {
-            -webkit-transform: rotate(-331deg);
-            transform: rotate(-331deg);
-        }
-        25% {
-            -webkit-transform: rotate(-320deg);
-            transform: rotate(-320deg);
-        }
-        50% {
-            -webkit-transform: rotate(-331deg);
-            transform: rotate(-331deg);
-        }
-        to {
-            -webkit-transform: rotate(-320deg);
-            transform: rotate(-320deg);
-        }
-    }
-    .nose,.uploadNurse {
-        position: absolute;
-        width: 50px;
-        height: 68px;
-        z-index: 7;
-        top: 85%;
-        border-radius: 14px;
-        background-color: red;
-    }
 
+        .heart:before {
+            top: -53%;
+            right: 0px;
+            -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
 
-</style>
+        .body {
+            position: absolute;
+            width: 100%;
+            height: 50%;
+            background-color: #f79e38;
+            border-top-right-radius: 17% 40%;
+            border-top-left-radius: 25%;
+            border-bottom-right-radius: 5% 13%;
+            border-bottom-left-radius: 30% 40%;
+            z-index: 3;
+        }
 
-<div id="backGround">
-    <!--<div class="dog">-->
+        .cheast {
+            position: absolute;
+            width: 45%;
+            height: 100%;
+            background-color: #fff;
+            border-top-right-radius: 17% 40%;
+            border-top-left-radius: 25%;
+            border-bottom-right-radius: 40% 40%;
+            border-bottom-left-radius: 40% 40%;
+            z-index: 4;
+        }
+
+        .cheast:after,
+        .cheast:before {
+            position: absolute;
+            content: '';
+            width: 7%;
+            height: 55%;
+            border-radius: 39%;
+            background-color: #fff;
+        }
+
+        .cheast:after {
+            top: 36%;
+            left: 3%;
+            -webkit-transform: rotate(-1deg);
+            transform: rotate(-1deg);
+        }
+
+        .cheast:before {
+            top: 19%;
+            left: -4%;
+        }
+
+        .head {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 4;
+            -webkit-animation: dog-head 1s ease-out infinite;
+            animation: dog-head 1s ease-out infinite;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+            -webkit-animation-direction: alternate;
+            animation-direction: alternate;
+        }
+
+        @-webkit-keyframes dog-head {
+            to {
+                -webkit-transform: translateX(-3px) rotate(3deg);
+                transform: translateX(-3px) rotate(3deg);
+            }
+        }
+
+        @keyframes dog-head {
+            to {
+                -webkit-transform: translateX(-3px) rotate(3deg);
+                transform: translateX(-3px) rotate(3deg);
+            }
+        }
+
+        .tail {
+            position: absolute;
+            top: -14%;
+            left: 92%;
+            width: 10%;
+            height: 45%;
+            background-color: #f79e38;
+            border-top-right-radius: 30% 30%;
+            border-top-left-radius: 40% 30%;
+            border-bottom-right-radius: 30% 40%;
+            border-bottom-left-radius: 40% 40%;
+            z-index: 2;
+            -webkit-transform: rotate(20deg);
+            transform: rotate(20deg);
+            -webkit-animation: dog-tail 170ms ease-out infinite;
+            animation: dog-tail 170ms ease-out infinite;
+        }
+
+        @-webkit-keyframes dog-tail {
+            from,
+            to {
+                -webkit-transform: rotate(10deg);
+                transform: rotate(10deg);
+            }
+            50%,
+            60% {
+                -webkit-transform: rotate(70deg) translateX(10px) translateY(2px);
+                transform: rotate(70deg) translateX(10px) translateY(2px);
+            }
+        }
+
+        @keyframes dog-tail {
+            from,
+            to {
+                -webkit-transform: rotate(10deg);
+                transform: rotate(10deg);
+            }
+            50%,
+            60% {
+                -webkit-transform: rotate(70deg) translateX(10px) translateY(2px);
+                transform: rotate(70deg) translateX(10px) translateY(2px);
+            }
+        }
+
+        .tail:before {
+            position: absolute;
+            content: '';
+            top: -8%;
+            left: -7%;
+            width: 100%;
+            height: 50%;
+            background-color: #f79e38;
+            border-radius: 50%;
+            -webkit-animation: dog-tail-before 160ms ease-out infinite;
+            animation: dog-tail-before 160ms ease-out infinite;
+        }
+
+        @-webkit-keyframes dog-tail-before {
+            from,
+            to {
+                -webkit-transform: translateX(0);
+                transform: translateX(0);
+            }
+            50% {
+                -webkit-transform: translateX(3px);
+                transform: translateX(3px);
+            }
+        }
+
+        @keyframes dog-tail-before {
+            from,
+            to {
+                -webkit-transform: translateX(0);
+                transform: translateX(0);
+            }
+            50% {
+                -webkit-transform: translateX(3px);
+                transform: translateX(3px);
+            }
+        }
+
+        .legs {
+            position: absolute;
+            top: 97%;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            z-index: 2;
+            -webkit-animation: dog-legs 1s ease-out infinite 1.5s;
+            animation: dog-legs 1s ease-out infinite 1.5s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+            -webkit-animation-direction: alternate;
+            animation-direction: alternate;
+        }
+
+        @-webkit-keyframes dog-legs {
+            from {
+                -webkit-transform: translateY(-1px);
+                transform: translateY(-1px);
+            }
+            to {
+                -webkit-transform: translateY(0px);
+                transform: translateY(0px);
+            }
+        }
+
+        @keyframes dog-legs {
+            from {
+                -webkit-transform: translateY(-1px);
+                transform: translateY(-1px);
+            }
+            to {
+                -webkit-transform: translateY(0px);
+                transform: translateY(0px);
+            }
+        }
+
+        .legs__front,
+        .legs__back {
+            width: 10%;
+            height: 100%;
+            background-color: #f79e38;
+            position: absolute;
+            border-bottom-right-radius: 100%;
+            border-bottom-left-radius: 100%;
+        }
+
+        .legs__front:after,
+        .legs__back:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            height: 49%;
+            background-color: #fff;
+            border-bottom-right-radius: 100%;
+            border-bottom-left-radius: 100%;
+        }
+
+        .legs__front--left {
+            left: 38%;
+            -webkit-transform: rotate(1deg);
+            transform: rotate(1deg);
+        }
+
+        .legs__front--right {
+            left: 20%;
+            -webkit-transform: rotate(-4deg);
+            transform: rotate(-4deg);
+        }
+
+        .legs__back--left {
+            left: 69%;
+            -webkit-transform: rotate(-7deg);
+            transform: rotate(-7deg);
+        }
+
+        .legs__back--right {
+            left: 85%;
+            -webkit-transform: rotate(2deg);
+            transform: rotate(2deg);
+        }
+
+        .face {
+            height: 40%;
+            width: 42%;
+            position: absolute;
+            top: -13%;
+            left: -3%;
+            background-color: #fff;
+            border-top-right-radius: 45% 50%;
+            border-top-left-radius: 35% 50%;
+            border-bottom-left-radius: 35% 21%;
+            z-index: 6;
+        }
+
+        .face:after,
+        .face:before {
+            content: '';
+            position: absolute;
+            background-color: #f79e38;
+        }
+
+        .face:after {
+            width: 27%;
+            left: 7%;
+            height: 23%;
+            border-top-right-radius: 100% 100%;
+            border-bottom-left-radius: 49% 100%;
+            -webkit-transform: rotate(-64deg);
+            transform: rotate(-64deg);
+            top: -1%;
+            border-top-left-radius: 0% -20%;
+            border-bottom-right-radius: 52% 0%;
+            -webkit-box-shadow: rgba(0, 0, 0, 0.1) 2px -6px 11px 1px;
+            box-shadow: rgba(0, 0, 0, 0.1) 2px -6px 11px 1px;
+        }
+
+        .face:before {
+            width: 55%;
+            left: 42%;
+            top: 0%;
+            height: 35%;
+            border-radius: 23% 7% 16% 12%;
+            -webkit-transform: rotate(0deg) scaleX(-1);
+            transform: rotate(0deg) scaleX(-1);
+        }
+
+        .eye {
+            width: 6%;
+            height: 6%;
+            position: absolute;
+            border-radius: 100%;
+            top: 24%;
+            background-color: #000;
+            z-index: 6;
+            -webkit-animation: dog-eye 1800ms infinite;
+            animation: dog-eye 1800ms infinite;
+        }
+
+        @-webkit-keyframes dog-eye {
+            from,
+            to {
+                -webkit-animation-timing-function: step-end;
+                animation-timing-function: step-end;
+                opacity: 1;
+            }
+            50%,
+            55% {
+                -webkit-animation-timing-function: step-start;
+                animation-timing-function: step-start;
+                opacity: 0;
+            }
+        }
+
+        @keyframes dog-eye {
+            from,
+            to {
+                -webkit-animation-timing-function: step-end;
+                animation-timing-function: step-end;
+                opacity: 1;
+            }
+            50%,
+            55% {
+                -webkit-animation-timing-function: step-start;
+                animation-timing-function: step-start;
+                opacity: 0;
+            }
+        }
+
+        .eye--left {
+            left: 27%;
+        }
+
+        .eye--right {
+            left: 46%;
+        }
+
+        .mouth {
+            background-color: transparent;
+            border-color: #000;
+            width: 44%;
+            border-style: solid;
+            border-width: 0.7vmin;
+            height: 48%;
+            z-index: 6;
+            position: absolute;
+            bottom: 35%;
+            left: 14%;
+            border-top-color: transparent;
+            border-bottom-left-radius: 72% 100%;
+            border-bottom-right-radius: 77% 100%;
+            border-right-color: transparent;
+            border-top-right-radius: 50%;
+            border-left-color: transparent;
+            -webkit-transform: rotate(-41deg);
+            transform: rotate(-41deg);
+        }
+
+        .year {
+            position: absolute;
+        }
+
+        .year--left {
+            top: -40%;
+            left: 3%;
+            height: 47%;
+            width: 19%;
+            z-index: 1;
+            background-color: #e99036;
+            border-top-left-radius: 68% 100%;
+            border-top-right-radius: 100% 100%;
+            -webkit-transform-origin: bottom center;
+            transform-origin: bottom center;
+            -webkit-animation: left-year 1000ms ease-out infinite;
+            animation: left-year 1000ms ease-out infinite;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+            -webkit-animation-direction: alternate;
+            animation-direction: alternate;
+        }
+
+        @-webkit-keyframes left-year {
+            from {
+                -webkit-transform: rotate(-26deg);
+                transform: rotate(-26deg);
+            }
+            25% {
+                -webkit-transform: rotate(-35deg);
+                transform: rotate(-35deg);
+            }
+            50% {
+                -webkit-transform: rotate(-26deg);
+                transform: rotate(-26deg);
+            }
+            to {
+                -webkit-transform: rotate(-40deg);
+                transform: rotate(-40deg);
+            }
+        }
+
+        @keyframes left-year {
+            from {
+                -webkit-transform: rotate(-26deg);
+                transform: rotate(-26deg);
+            }
+            25% {
+                -webkit-transform: rotate(-35deg);
+                transform: rotate(-35deg);
+            }
+            50% {
+                -webkit-transform: rotate(-26deg);
+                transform: rotate(-26deg);
+            }
+            to {
+                -webkit-transform: rotate(-40deg);
+                transform: rotate(-40deg);
+            }
+        }
+
+        .year--right {
+            top: -39%;
+            left: 19%;
+            height: 38%;
+            width: 18%;
+            z-index: 1;
+            background-color: #f79e38;
+            border-top-left-radius: 56% 100%;
+            border-top-right-radius: 100% 100%;
+            -webkit-transform-origin: bottom center;
+            transform-origin: bottom center;
+            border-bottom-right-radius: 14% 38%;
+            -webkit-animation: right-year 1000ms ease-out infinite;
+            animation: right-year 1000ms ease-out infinite;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+            -webkit-animation-direction: alternate;
+            animation-direction: alternate;
+        }
+
+        @-webkit-keyframes right-year {
+            from {
+                -webkit-transform: rotate(-331deg);
+                transform: rotate(-331deg);
+            }
+            25% {
+                -webkit-transform: rotate(-320deg);
+                transform: rotate(-320deg);
+            }
+            50% {
+                -webkit-transform: rotate(-331deg);
+                transform: rotate(-331deg);
+            }
+            to {
+                -webkit-transform: rotate(-320deg);
+                transform: rotate(-320deg);
+            }
+        }
+
+        @keyframes right-year {
+            from {
+                -webkit-transform: rotate(-331deg);
+                transform: rotate(-331deg);
+            }
+            25% {
+                -webkit-transform: rotate(-320deg);
+                transform: rotate(-320deg);
+            }
+            50% {
+                -webkit-transform: rotate(-331deg);
+                transform: rotate(-331deg);
+            }
+            to {
+                -webkit-transform: rotate(-320deg);
+                transform: rotate(-320deg);
+            }
+        }
+
+        .nose,
+        .uploadNurse {
+            position: absolute;
+            width: 50px;
+            height: 68px;
+            z-index: 7;
+            top: 85%;
+            border-radius: 14px;
+            background-color: red;
+        }
+    </style>
+
+    <div id="backGround">
+        <!--<div class="dog">-->
         <!--<div class="heart heart&#45;&#45;1"></div>-->
         <!--<div class="heart heart&#45;&#45;2"></div>-->
         <!--<div class="heart heart&#45;&#45;3"></div>-->
         <!--<div class="heart heart&#45;&#45;4"></div>-->
         <!--<div class="head">-->
-            <!--<div class="year year&#45;&#45;left"></div>-->
-            <!--<div class="year year&#45;&#45;right"></div>-->
-            <button id="sub" type="submit">132</button>
-           <!---->
-            <!--<div class="face">-->
-                <!--<div class="eye eye&#45;&#45;left"></div>-->
-                <!--<div class="eye eye&#45;&#45;right"></div>-->
-                <!--<div class="mouth"></div>-->
-            <!--</div>-->
+        <!--<div class="year year&#45;&#45;left"></div>-->
+        <!--<div class="year year&#45;&#45;right"></div>-->
+        <button id="sub" type="submit">132</button>
+        <!---->
+        <!--<div class="face">-->
+        <!--<div class="eye eye&#45;&#45;left"></div>-->
+        <!--<div class="eye eye&#45;&#45;right"></div>-->
+        <!--<div class="mouth"></div>-->
+        <!--</div>-->
         <!--</div>-->
         <!--<div class="body">-->
-            <!--<div class="cheast"></div>-->
-            <!--<div class="back"></div>-->
-            <!--<div class="legs">-->
-                <!--<div class="legs__front legs__front&#45;&#45;left"></div>-->
-                <!--<div class="legs__front legs__front&#45;&#45;right"></div>-->
-                <!--<div class="legs__back legs__back&#45;&#45;left"></div>-->
-                <!--<div class="legs__back legs__back&#45;&#45;right"></div>-->
-            <!--</div>-->
-            <!--<div id="pp" ></div>-->
-            <!--<div class="tail"></div>-->
+        <!--<div class="cheast"></div>-->
+        <!--<div class="back"></div>-->
+        <!--<div class="legs">-->
+        <!--<div class="legs__front legs__front&#45;&#45;left"></div>-->
+        <!--<div class="legs__front legs__front&#45;&#45;right"></div>-->
+        <!--<div class="legs__back legs__back&#45;&#45;left"></div>-->
+        <!--<div class="legs__back legs__back&#45;&#45;right"></div>-->
         <!--</div>-->
-    <!--</div>-->
+        <!--<div id="pp" ></div>-->
+        <!--<div class="tail"></div>-->
+        <!--</div>-->
+        <!--</div>-->
 
-    <div id="dogNurse" class="nose"></div>
-</div>
-<div id="apilist">
-   <div class="search-box">
-       <input type="text" class="inputserVal">
-   <div id="search">搜</div>
-   </div>
-    <ul id="list"></ul>
-</div>
+        <div id="dogNurse" class="nose"></div>
+    </div>
+    <div id="apilist">
+        <div class="search-box">
+            <input type="text" class="inputserVal">
+            <div id="search">搜</div>
+        </div>
+        <ul id="list"></ul>
+    </div>
 
     <!--<div class="left"></div>-->
     <div class="right">
         <div id="editApiBox">
-        <div id="urlBox">
-            <select id="methodSelect">
-                <option value="post">post</option>
-                <option value="get">get</option>
-                <option value="delete">delete</option>
-                <option value="patch">patch</option>
-                <option value="put">patch</option>
-            </select>   <input id="url" type="text">
-        </div>
+            <div id="urlBox">
+                <select id="methodSelect">
+                    <option value="post">post</option>
+                    <option value="get">get</option>
+                    <option value="delete">delete</option>
+                    <option value="patch">patch</option>
+                    <option value="put">patch</option>
+                </select>
+                <input id="url" type="text">
+            </div>
 
-        <select id="contentTypeSelect">
-            <option value="application/x-www-form-urlencoded">application/x-www-form-urlencoded</option>
-            <option value="text/xml">text/xml</option>
-            <option value="application/json">application/json</option>
-            <option value="multipart/form-data">multipart/form-data</option>
-        </select>
+            <select id="contentTypeSelect">
+                <option value="application/x-www-form-urlencoded">application/x-www-form-urlencoded</option>
+                <option value="text/xml">text/xml</option>
+                <option value="application/json">application/json</option>
+                <option value="multipart/form-data">multipart/form-data</option>
+            </select>
 
 
-        <textarea name="" id="logic" cols="30" rows="10"></textarea>
+            <textarea name="" id="logic" cols="30" rows="10"></textarea>
             <div class="container">
                 <div class="swiper-container swiper1">
                     <div class="swiper-wrapper" id="controllTip">
@@ -963,108 +1067,129 @@
                 <!-- swiper2 -->
                 <div class="swiper-container swiper2">
                     <div class="swiper-wrapper" id="tipList">
-                        <div class="swiper-slide swiper-no-swiping"> <textarea rows="4" id="c1" cols="50" name="comment" ></textarea></div>
-                        <div class="swiper-slide swiper-no-swiping"><textarea rows="4" id="c2" cols="50" name="comment" ></textarea></div>
-                        <div class="swiper-slide swiper-no-swiping"><textarea rows="4" id="c3" cols="50" name="comment" ></textarea></div>
-                        <div class="swiper-slide swiper-no-swiping"><textarea rows="4" id="c4" cols="50" name="comment" ></textarea></div>
+                        <div class="swiper-slide swiper-no-swiping">
+                            <textarea rows="4" id="c1" cols="50" name="comment"></textarea>
+                        </div>
+                        <div class="swiper-slide swiper-no-swiping">
+                            <textarea rows="4" id="c2" cols="50" name="comment"></textarea>
+                        </div>
+                        <div class="swiper-slide swiper-no-swiping">
+                            <textarea rows="4" id="c3" cols="50" name="comment"></textarea>
+                        </div>
+                        <div class="swiper-slide swiper-no-swiping">
+                            <textarea rows="4" id="c4" cols="50" name="comment"></textarea>
+                        </div>
                     </div>
                 </div>
 
             </div>
         </div>
 
-   <div>
-       <!--<input type="text" placeholder="url">-->
+        <div>
+            <!--<input type="text" placeholder="url">-->
 
 
-    <input  type="file" id="myfiles" name="json" >
+            <input type="file" id="myfiles" name="json">
 
 
 
-</div></div>
+        </div>
+    </div>
 </body>
 <script src="socket.io.js"></script>
 <script src="jquery.js"></script>
 <script src="swipper.js"></script>
 <script src="./Ip.js"> </script>
 <script>
- var list;
-  var ip= getIp();
-     $('#addTip').click( function () {
-        var list =$('#tipList').children();
-        var content=[];
-        for( var x=0,l=list.length;x<l;x++){
-         var val= $(list[x]).children().val();
-          if(val!==''){
-              content.push(JSON.parse(val))
-          }
+    var list;
+    var ip = getIp();
+    $('#addTip').click(function () {
+        // 睡醒之后看
+        var list = $('#tipList').children();
+        var content = [];
+        for (var x = 0, l = list.length; x < l; x++) {
+            var val = $(list[x]).children().val();
+            if (val !== '') {
+                content.push(JSON.parse(val))
+            }
         }
-         var sim = {
-    "href": $('#url').val(),
-    "logic": $('#logic').val(),
-    "contentType": $('#contentTypeSelect').val(),
-    "method": $('#methodSelect').val(),
-    "content": content
-};
-         $("#dogNurse").attr("class","uploadNurse");
-//ip
-         $.post("http://"+ip+":8080/editApi",sim,function (re,status) {
-             if(status!='success'){
-                 $("#pp").attr("class","pp");
-                 return
-             }
-             socket.emit("changeList", {ip});
-             $("#dogNurse").attr("class","nose");
 
-         })
-     });
+        var sim = {
+            "href": $('#url').val(),
+            "logic": $('#logic').val(),
+            "contentType": $('#contentTypeSelect').val(),
+            "method": $('#methodSelect').val(),
+            "content": content
+        };
+        $("#dogNurse").attr("class", "uploadNurse");
+        sim = JSON.stringify(sim);
+        console.log(sim);
+        debugger
+        //ip
+        $.ajax({
+            type: 'POST',
+            url: "http://" + ip + ":8080/editApi",
+            data: sim,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (re, status) {
+                if (status != 'success') {
+                    $("#pp").attr("class", "pp");
+                    return
+                }
+                socket.emit("changeList", { ip });
+                $("#dogNurse").attr("class", "nose");
+
+            }
+        });
+    });
     $('#sub').mouseover(function () {
-       $('.heart').css("display","block");
+        $('.heart').css("display", "block");
     });
     $('#sub').mouseout(function () {
-        $('.heart').css("display","none");
+        $('.heart').css("display", "none");
     });
 
-    $("#sub").click(function(){
-        $("#dogNurse").attr("class","uploadNurse");
-        if($("#pp").hasClass("pp")){
-            $("#pp").attr("class","hidepp");
-            $("#dogNurse").attr("class","nose");
-        return
+    $("#sub").click(function () {
+        $("#dogNurse").attr("class", "uploadNurse");
+        if ($("#pp").hasClass("pp")) {
+            $("#pp").attr("class", "hidepp");
+            $("#dogNurse").attr("class", "nose");
+            return
         }
 
         var formData = new FormData();
-    var files = document.getElementById("myfiles").files;
-    formData.enctype="multipart/form-data";
-    var fileArray=[].slice.call(files,0);//类数组转换为数组
-    fileArray.forEach(function(file){
-        formData.append("myfile",file);//循环遍历把文件对象插到formData对象上
-    });
-    var xhr = new XMLHttpRequest();
-    xhr.open("post","http://"+ip+":8080/upFile",true);//发送post请求到/upload
+        var files = document.getElementById("myfiles").files;
+        formData.enctype = "multipart/form-data";
+        var fileArray = [].slice.call(files, 0);//类数组转换为数组
+        fileArray.forEach(function (file) {
+            formData.append("myfile", file);//循环遍历把文件对象插到formData对象上
+        });
+        var xhr = new XMLHttpRequest();
+        xhr.open("post", "http://" + ip + ":8080/upFile", true);//发送post请求到/upload
 
         console.log('bbb');
         xhr.onload = function (e) {
-        if(this.status == 200){
-            console.log('vvvv');
-            list= JSON.parse(e.target.response).list
-            renderApiList(JSON.parse(e.target.response).list,'c')
-            $("#dogNurse").attr("class","nose");
-        }else{
-                $("#pp").attr("class","pp");
-        }
-    };
-    xhr.send(formData);
+            if (this.status == 200) {
+                console.log('vvvv');
+                list = JSON.parse(e.target.response).list
+                renderApiList(JSON.parse(e.target.response).list, 'c')
+                $("#dogNurse").attr("class", "nose");
+            } else {
+                $("#pp").attr("class", "pp");
+            }
+        };
+        xhr.send(formData);
 
 
 
 
     });
     var checkDom;
-    function renderApiList(json,b) {
-        var DOM='';
-        for( var api in json){
-             DOM += '<li   api='+api+'  class=\'api\'><b class="text">'+json[api]['realName']+'</b> <span class="method">'+json[api]['method']+'</span><i class="gt"></i> <b class="check hide"></b></li>'
+    function renderApiList(json, b) {
+        var DOM = '';
+        for (var api in json) {
+            DOM += '<li   api=' + api + '  class=\'api\'><b class="text">' + json[api]['realName'] + '</b> <span class="method">' + json[api]['method'] + '</span><i class="gt"></i> <b class="check hide"></b></li>'
         };
         $("#list").html(DOM)
 
@@ -1072,71 +1197,82 @@
     }
 
 
-  $('#list').on('click','.gt', function(e){
-     var apiName =$(e.target).parent(".api").attr("api");
-      $("#dogNurse").attr("class","uploadNurse");
+    $('#list').on('click', '.gt', function (e) {
+        var apiName = $(e.target).parent(".api").attr("api");
+        $("#dogNurse").attr("class", "uploadNurse");
 
-      $.post('http://'+ip+':8080/deleteApi',{apiName},function (res,status) {
-          if(status!='success'){
-              $("#pp").attr("class","pp");
-              return
-          }
-          socket.emit("changeList", {ip});
-          $("#dogNurse").attr("class","nose");
+        $.post('http://' + ip + ':8080/deleteApi', { apiName }, function (res, status) {
+            if (status != 'success') {
+                $("#pp").attr("class", "pp");
+                return
+            }
+            socket.emit("changeList", { ip });
+            $("#dogNurse").attr("class", "nose");
 
-      })
-  });
- $('#list').on('click','.text', function(e){
-     var api=     $(e.target).parent(".api").attr("api");
-     if(checkDom){
-         checkDom.addClass("hide");
-     }
-         checkDom=$(e.target).children('b');
-    $(e.target).children('b').removeClass("hide");
+        })
+    });
+    $('#list').on('click', '.text', function (e) {
+        var api = $(e.target).parent(".api").attr("api");
+        var method = $(e.target).parent(".api").children('.method').html();
+        if (checkDom) {
+            checkDom.addClass("hide");
+        }
+        checkDom = $(e.target).children('b');
+        $(e.target).children('b').removeClass("hide");
 
-         $("#dogNurse").attr("class","uploadNurse");
-         $.get("http://"+ip+":8080/apiContent",{ api},
-             function(result,status){
+        $("#dogNurse").attr("class", "uploadNurse");
+        $.get("http://" + ip + ":8080/apiContent", { api, method },
+            function (result, status) {
 
-                if(status!='success'){
-                        $("#pp").attr("class","pp");
-                   return
+                if (status != 'success') {
+                    $("#pp").attr("class", "pp");
+                    return
+                }
+                console.log('apiContent');
+                $("#dogNurse").attr("class", "nose");
+                result = JSON.parse(result);
+                result = result.api;
+                $('#url').val(result.realName);
+                $('#logic').val(result.logic);
+                $('#contentTypeSelect').val(result.contentType);
+                $('#methodSelect').val(result.method);
+                if (result == []) {
+                    return
+                }
+                for (var i = 0; i < 4; i++) {
+                    var dom = '#c' + (i + 1);
+                    $(dom).val('');
                 }
 
-                 $("#dogNurse").attr("class","nose");
-             result = JSON.parse(result);
-             result =result.api;
-             $('#url').val(result.realName);
-             $('#logic').val(result.logic);
-             $('#contentTypeSelect').val(result.contentType);
-             $('#methodSelect').val(result.method);
-              if(result==[]){
-    return
-}
-                 for(var x=0,l=result.content.length;x<l;x++){
-                 if(x<=3){
-                   var dom = '#c'+(x+1);
-                     $(dom).val(JSON.stringify(result.content[x]));
-                 }
-             }
+                if (!result.content) {
+                    result.content = [];
+                }
+                console.log(result.content);
 
-         })
-     });
- $('#search').on('click',function (e) {
-     var renderList= {};
-    for(var api in list){
-        if(api.indexOf($('.inputserVal').val())!=-1){
-            renderList[api]=list[api];
+                for (var x = 0, l = result.content.length; x < l; x++) {
+                    if (x <= 3) {
+                        var dom = '#c' + (x + 1);
+                        $(dom).val(JSON.stringify(result.content[x]));
+                    }
+                }
+
+            })
+    });
+    $('#search').on('click', function (e) {
+        var renderList = {};
+        for (var api in list) {
+            if (api.indexOf($('.inputserVal').val()) != -1) {
+                renderList[api] = list[api];
+            }
         }
-    }
-    renderApiList(renderList,'f')
+        renderApiList(renderList, 'f')
 
- })  
+    })
 
 </script>
 <script>
-    var ip= getIp();
-    $(function() {
+    var ip = getIp();
+    $(function () {
         function setCurrentSlide(ele, index) {
             $(".swiper1 .swiper-slide").removeClass("selected");
             ele.addClass("selected");
@@ -1149,13 +1285,13 @@
             spaceBetween: 10,
             freeMode: true,
             loop: false,
-            onTab: function(swiper) {
+            onTab: function (swiper) {
                 var n = swiper1.clickedIndex;
             }
         });
-        swiper1.slides.each(function(index, val) {
+        swiper1.slides.each(function (index, val) {
             var ele = $(this);
-            ele.on("click", function() {
+            ele.on("click", function () {
                 setCurrentSlide(ele, index);
                 swiper2.slideTo(index, 500, false);
                 //mySwiper.initialSlide=index;
@@ -1166,12 +1302,12 @@
             //freeModeSticky  设置为true 滑动会自动贴合
             direction: 'horizontal',//Slides的滑动方向，可设置水平(horizontal)或垂直(vertical)。
             loop: false,
-//					effect : 'fade',//淡入
+            //					effect : 'fade',//淡入
             //effect : 'cube',//方块
             //effect : 'coverflow',//3D流
-//					effect : 'flip',//3D翻转
+            //					effect : 'flip',//3D翻转
             autoHeight: true,//自动高度。设置为true时，wrapper和container会随着当前slide的高度而发生变化。
-            onSlideChangeEnd: function(swiper) {  //回调函数，swiper从一个slide过渡到另一个slide结束时执行。
+            onSlideChangeEnd: function (swiper) {  //回调函数，swiper从一个slide过渡到另一个slide结束时执行。
                 var n = swiper.activeIndex;
                 setCurrentSlide($(".swiper1 .swiper-slide").eq(n), n);
                 swiper1.slideTo(n, 500, false);
@@ -1179,32 +1315,34 @@
         });
 
 
-        $("#dogNurse").attr("class","uploadNurse");
+        $("#dogNurse").attr("class", "uploadNurse");
 
-        $.get('http://'+ip+':8080/apiList',function (res,status) {
-            if(status!='success'){
-                $("#pp").attr("class","pp");
+        $.get('http://' + ip + ':8080/apiList', function (res, status) {
+            if (status != 'success') {
+                $("#pp").attr("class", "pp");
                 return
             }
             console.log('this is re');
-            $("#dogNurse").attr("class","nose");
-            list =JSON.parse(res);
-            renderApiList(JSON.parse(res),'g')
+            $("#dogNurse").attr("class", "nose");
+            list = JSON.parse(res);
+            renderApiList(JSON.parse(res), 'g')
         })
     });
 </script>
 <script>
-    var ip= getIp();
+    var ip = getIp();
     console.log(io);
     console.log('this is io');
-    socket = io.connect('ws://'+ip+':8080');
-    socket.on("changeList", function(reqIp) {
+    socket = io.connect('ws://' + ip + ':8080');
+    socket.on("changeList", function (reqIp) {
         console.log(reqIp.ip);
-        $.get('http://'+ip+':8080/apiList',function (res) {
-          list = JSON.parse(res);
+        console.log('其他更新');
+        $.get('http://' + ip + ':8080/apiList', function (res) {
+            list = JSON.parse(res);
             renderApiList(JSON.parse(res))
         })
 
     });
 </script>
+
 </html>

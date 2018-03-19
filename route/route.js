@@ -19,6 +19,8 @@ var packingRes = function (res) {
         res.writeHead(200,
             {
                 'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'get,post,put,PATCH,patch,delete,GET,POST,PUT,DELETE',
+                'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
                 'Content-Type': 'text/' + (type || 'plain') + '; charset=UTF-8'
             }
         );
@@ -50,7 +52,6 @@ var route = function () {
      */
     function addWith(string) {
         // 添加/
-        console.log('addWith');
         if (!string.startsWith('/')) {
             string = '/' + string;
         }
@@ -59,97 +60,145 @@ var route = function () {
         }
         return string
     };
-
-   function findApi(url,fn) {
-      // 寻找存在API
-       console.log('findApi');
-       var error =false;
-       var apiList= urlList.list();
-       if( Object.keys(apiList).length==0){
-           error = true;
-           fn(error)
-       }
-
+    function deleteWith(string) {
+        if (string.startsWith('/')) {
+            string = string.slice(1,string.length)
+        }
+        if (string.endsWith('/')) {
+            string =string.slice(0,string.length-1)
+        }
+        return string
+    }
+  function mapapiList(url,method,apiList,fn) {
+      var arr = Object.keys(apiList);
+      var length= arr.length;
+      var index=0;
+      var has =false;
+       var url1= deleteWith(url);
       for( var api in apiList){
-         var req= new RegExp(api,"g");
-          if (req.test(url)){
-          // 遍历寻找目标API
+          var  apiName=api.split('_')[0];
+          index++;
+         var apiName1 =deleteWith(apiName);
+          apiName1= '^'+apiName1+'$';
+          var req= new RegExp(apiName,"g");
+          var req1= new RegExp(apiName1,"g");
+          if (req1.test(url1)){
+              // 遍历寻找目标API
+              console.log('周到了');
+              if(method===apiList[api]['method']){
 
+              has = true;
               var arr= req.exec(url);
-             if(arr==null){
-                 arr= req.exec(url);
-             }
+              if(arr==null){
+                  arr= req.exec(url);
+              }
 
               var agrJson ={};
               for( var i=0,l=apiList[api]['search'].length;i<l;i++){
                   agrJson[apiList[api]['search'][i]]=arr[i+1];
               }
 
-                 fn(error,apiList[api],api,agrJson)
-             break
-        }
+              fn(false,apiList[api],api,agrJson);
+                  return
+             }
+          }
+             if((length==index)&&!has){
+                 fn(true);
+
+             }
       }
-      error= true;
-      fn(error)
+  }
+   function findApi(url,method,fn) {
+      // 寻找存在API
+       console.log('findApi');
+       var error =true;
+       var apiList= urlList.list();
+       if( Object.keys(apiList).length==0){
+           error = true;
+           console.log('长度为0');
+           fn(error)
+       }
+
+
+       mapapiList(url,method,apiList,function (error,api,apiName,agrJson) {
+           if(error){
+               fn(error)
+           }else{
+               fn(error,api,apiName,agrJson);
+           }
+       })
+
 
   }
+function mapParams(json) {
+   var p=   Object.keys(json).map(function (key) {
+        // body...
+        return key + "=" + json[key];
+    }).join("&");
 
-    var handle = function (req, res) {
+    return p;
+
+}function isEmptyObject(obj) {
+        for (var key in obj) {
+            return false;//返回false，不为空对象
+        }
+        return true;//返回true，为空对象
+    }
+        var handle = function (req, res) {
         console.log('handle');
         packingRes(res);
         var Url = url.parse(req.url, true);
+
         var pathname = Url.pathname;
-        if (!pathname.endsWith('/')) {
+            if (!pathname.endsWith('/')) {
             pathname = pathname + '/';
         }
 
-        var query = Url.query;
+            var query = Url.query;
         var method = req.method.toLowerCase();
-        if(req.headers['access-control-request-method']){
-            method=req.headers['access-control-request-method'].toLowerCase();
+        if (req.headers['access-control-request-method']) {
+            method = req.headers['access-control-request-method'].toLowerCase();
         }
-        console.log('方式' + method + '--' + '名字' + pathname);
-        findApi(pathname, (err,api,apiName,agrJson) => {
-            if(err) {
+        findApi(pathname,method, function (err, api, apiName, agrJson) {
+            if (err) {
                 // 路由不存在
 
-                if(self['_' + method][pathname]){
-                    res.query=   query;
+                if (self['_' + method][pathname]) {
+                    res.query = query;
 
 
-                    self['_' + method][pathname](req, res,agrJson);
-                }else{
-                    console.log(pathname+'路由不存在');
+                    self['_' + method][pathname](req, res, agrJson);
+                } else {
+                    console.log(err);
+                    console.log(pathname + '路由不存在');
                     res.writeHead(404, {'Content-Type': 'text/plain'});
                     res.end();
                     return
                 }
 
 
-
             }
-            else{
+            else {
 
 
-                res.setHeader('Access-Control-Allow-Origin', '*');
-
-                if(self['_' + method][apiName]!==undefined){
-
-                    self['_' + method][apiName](req, res, api,agrJson);
-
+                if (self['_' + method][apiName] !== undefined) {
+                    self['_' + method][apiName](req, res, api, agrJson);
 
                 }
+                // {
+
+
+                // }
+                // }
+
+
+                // });
+
+
             }
 
-
         });
-
-
-
-
-
-    };
-
+    }
     handle.get = function (string, callback) {
         string=  addWith(string)
         self._get[string] = callback;
@@ -160,7 +209,7 @@ var route = function () {
     };
     handle.delete = function (string, callback) {
         string=  addWith(string)
-        self._get[string] = callback;
+        self._delete[string] = callback;
     };
     handle.post = function (string, callback) {
         string=  addWith(string)

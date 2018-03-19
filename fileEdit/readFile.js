@@ -1,8 +1,10 @@
 var fs = require("fs");
-var apiList =require('../module/urlList')
+var apiList =require('../module/urlList');
+var path =require('path');
+
 function readFile(uploadApi,app) {
-    console.log('readFile');
-    fs.readFile(__dirname+'\\json\\api.json','utf8',function(err, files){
+
+    fs.readFile(path.resolve(__dirname, '..')+'\\json\\api.json','utf8',function(err, files){
         if (err||files.length==0) {
         }else{
             console.log('加载初始文件');

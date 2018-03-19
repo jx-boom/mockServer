@@ -1,4 +1,6 @@
 var reslogic =require('../res/resLogic');
+var path =require('path');
+
 function uploadApi(apiList,app) {
     console.log('uploadApi');
     for( var url in apiList){

@@ -1,10 +1,11 @@
 var formidable = require('formidable');
 var addApi =require('../apiEdit/addApi');
 var fs = require("fs");
-fs.readdir(__dirname+"\\json",function(err, files){
+var path =require('path');
+fs.readdir(path.resolve(__dirname, '..')+"\\json",function(err, files){
     if (err||files.length==0) {
         console.log('储存文件目录不存在');
-        fs.mkdir(__dirname+"\\json",function(err,files){
+        fs.mkdir(path.resolve(__dirname, '..')+"\\json",function(err,files){
             console.log("目录创建成功。");
         });
     }
