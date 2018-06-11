@@ -5,6 +5,7 @@ var responseFileList= require('./res/responseFileList');
 var editApi =require('./apiEdit/editApi');
 var getAllApi =require('./apiEdit/getAllApi');
 var deleteApi =require('./apiEdit/deleteApi');
+var sethost = require('./apiEdit/sethost')
 var fs = require('fs');
 
 
@@ -12,14 +13,9 @@ var fs = require('fs');
 
 
 function get_file_content(filepath) {
-    console.log('get_file_content');
     return fs.readFileSync(filepath);
 }
 function response(app) {
-
-
-    console.log('response');
-
 
     app.get('/',function (req,res) {
         res.end(get_file_content(__dirname + '\\' + 'index.html'))
@@ -41,11 +37,6 @@ function response(app) {
         res.end(get_file_content(__dirname + '\\dist\\pp.png'))
     });
     app.get('/Ip.js',function (req,res) {
-        console.log('Ip');
-        console.log('?????');
-        console.log('?????');
-        console.log('?????');
-        console.log('?????');
         res.end(get_file_content(__dirname + '\\' + 'Ip.js'))
     });
 
@@ -57,7 +48,6 @@ function response(app) {
         res.end(get_file_content(__dirname + '\\dist\\' + 'swipper.js'))
     });
   app.post('/upFile',function (req,res) {
-      console.log('上传文件请求');
       uploadFile(req,res,app);
   });
   app.get('/apiContent',function (req,res) {
@@ -67,11 +57,16 @@ function response(app) {
      getAllApi(req,res,ApiList)
  });
     app.post('/deleteApi',function (req,res) {
+        console.log('777');
         deleteApi(req,res,ApiList)
     });
   app.post('/editApi',function (req,res) {
+      console.log('666');
 
       editApi(req,res,ApiList,app)
+  });
+  app.post('/setHost',function (req,res) {
+      sethost(req,res,ApiList,app)
   });
 
 

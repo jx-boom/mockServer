@@ -64,8 +64,7 @@ function addApi(app,filename,res) {
     getFileContent(app,filename, res,addToList)
 }
 function addToList (error,value,list,res) {
-    console.log('addToList');
-    console.log(res);
+
     if(error){
         res.writeHead(500, {  });
         res.end({"data": value});

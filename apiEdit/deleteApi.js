@@ -1,9 +1,7 @@
 var querystring = require("querystring");
 var fs = require("fs");
 var path = require("path");
-
 function deleteApi(req, res, ApiList) {
-  console.log("deleteApi");
   var body = "";
   req.on("data", function(chunk) {
     body += chunk;
@@ -13,16 +11,9 @@ function deleteApi(req, res, ApiList) {
     body = querystring.parse(body); //将一个字符串反序列化为一个对象
     // 、、body.apiName + "_" + body.method+'/'
 
-    console.log("$$$$$$$$");
-    console.log("$$$$$$$$");
-    console.log(body.apiName);
-    console.log("$$$$$$$$");
-    console.log("$$$$$$$$");
-    console.log("$$$$$$$$");
 
 
     ApiList.deleteApi(body.apiName , function(apiList) {
-      console.log("看看能不能进来");
 
       fs.writeFile(
         path.resolve(__dirname, "..") + "\\json\\api.json",

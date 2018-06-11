@@ -6,7 +6,7 @@ class Rectangle {
     return this.apiList;
   }
   add(apiList, fn) {
-    console.log("add list");
+
     var isErr = false;
     function addWith(string) {
       var name = string;
@@ -56,8 +56,7 @@ class Rectangle {
     // }
   }
   getOne(api, fn) {
-    console.log(api);
-    console.log(this.apiList);
+
     if (this.apiList[api]) {
       fn(this.apiList[api]);
     } else {
@@ -65,9 +64,7 @@ class Rectangle {
     }
   }
   deleteApi(apiName, fn) {
-    console.log("deleteApi list");
-    
-    console.log(this.apiList);
+
     if (this.apiList[apiName]) {
       delete this.apiList[apiName];
     }

@@ -1,7 +1,10 @@
 var url = require('url');
 var urlList =require('../module/urlList');
+var rediceApi =require('../res/rediceApi');
+console.log(rediceApi);
+console.log("rediceApi");
 var packingRes = function (res) {
-    console.log('packingRes');
+
     var end = res.end;
     res.end = function (data, encoding, callback) {
         if (data && !(data instanceof Buffer) && (typeof data !== 'function')) {
@@ -14,13 +17,12 @@ var packingRes = function (res) {
 
         end.call(res, data, encoding, callback);
     };
-
     res.send = function (data, type) {
         res.writeHead(200,
             {
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Methods': 'get,post,put,PATCH,patch,delete,GET,POST,PUT,DELETE',
-                'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+                'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept,authorization,tenant',
                 'Content-Type': 'text/' + (type || 'plain') + '; charset=UTF-8'
             }
         );
@@ -38,18 +40,11 @@ var packingRes = function (res) {
 console.log('加载路由');
 var route = function () {
     var self = this;
-    console.log('route');
     this._get = {};
     this._post = {};
     this._patch = {};
     this._delete = {};
     this._put = {};
-    /**
-     * 处理请求
-     *
-     * @param {*} req
-     * @param {*} res
-     */
     function addWith(string) {
         // 添加/
         if (!string.startsWith('/')) {
@@ -69,7 +64,7 @@ var route = function () {
         }
         return string
     }
-  function mapapiList(url,method,apiList,fn) {
+  function mapapiList(url,method,apiList,query,fn) {
       var arr = Object.keys(apiList);
       var length= arr.length;
       var index=0;
@@ -84,9 +79,7 @@ var route = function () {
           var req1= new RegExp(apiName1,"g");
           if (req1.test(url1)){
               // 遍历寻找目标API
-              console.log('周到了');
               if(method===apiList[api]['method']){
-
               has = true;
               var arr= req.exec(url);
               if(arr==null){
@@ -94,10 +87,12 @@ var route = function () {
               }
 
               var agrJson ={};
-              for( var i=0,l=apiList[api]['search'].length;i<l;i++){
+                  for( var i=0,l=apiList[api]['search'].length;i<l;i++){
                   agrJson[apiList[api]['search'][i]]=arr[i+1];
               }
-
+for(var key in query){
+    agrJson[key]  = query[key];
+}
               fn(false,apiList[api],api,agrJson);
                   return
              }
@@ -108,21 +103,20 @@ var route = function () {
              }
       }
   }
-   function findApi(url,method,fn) {
+   function findApi(url,method,query,res,fn) {
       // 寻找存在API
-       console.log('findApi');
        var error =true;
        var apiList= urlList.list();
        if( Object.keys(apiList).length==0){
            error = true;
-           console.log('长度为0');
            fn(error)
        }
 
 
-       mapapiList(url,method,apiList,function (error,api,apiName,agrJson) {
+       mapapiList(url,method,apiList,query,function (error,api,apiName,agrJson) {
            if(error){
-               fn(error)
+
+               fn(error,api,apiName,agrJson,res)
            }else{
                fn(error,api,apiName,agrJson);
            }
@@ -130,73 +124,43 @@ var route = function () {
 
 
   }
-function mapParams(json) {
-   var p=   Object.keys(json).map(function (key) {
-        // body...
-        return key + "=" + json[key];
-    }).join("&");
-
-    return p;
-
-}function isEmptyObject(obj) {
-        for (var key in obj) {
-            return false;//返回false，不为空对象
-        }
-        return true;//返回true，为空对象
-    }
-        var handle = function (req, res) {
-        console.log('handle');
+   var handle = function (req, res) {
         packingRes(res);
         var Url = url.parse(req.url, true);
-
-        var pathname = Url.pathname;
+       var href =Url.href;
+       var pathname = Url.pathname;
             if (!pathname.endsWith('/')) {
             pathname = pathname + '/';
         }
 
             var query = Url.query;
-        var method = req.method.toLowerCase();
+
+       var alldata = '';
+            req.on('data', function (chunk) {
+                     alldata += chunk;
+            });
+       var method = req.method.toLowerCase();
         if (req.headers['access-control-request-method']) {
             method = req.headers['access-control-request-method'].toLowerCase();
-        }
-        findApi(pathname,method, function (err, api, apiName, agrJson) {
+        };
+        var  reqdata= req;
+        findApi(pathname,method,query, res,function (err, api, apiName, agrJson,reqdata) {
             if (err) {
                 // 路由不存在
-
                 if (self['_' + method][pathname]) {
                     res.query = query;
-
-
                     self['_' + method][pathname](req, res, agrJson);
-                } else {
-                    console.log(err);
-                    console.log(pathname + '路由不存在');
-                    res.writeHead(404, {'Content-Type': 'text/plain'});
-                    res.end();
-                    return
                 }
+                else {
+                    rediceApi(res,reqdata,req,href)
 
-
+                }
             }
             else {
-
-
                 if (self['_' + method][apiName] !== undefined) {
                     self['_' + method][apiName](req, res, api, agrJson);
-
                 }
-                // {
-
-
-                // }
-                // }
-
-
-                // });
-
-
             }
-
         });
     }
     handle.get = function (string, callback) {
@@ -219,6 +183,12 @@ function mapParams(json) {
         string=  addWith(string)
         self._patch[string] = callback;
     };
+
+    handle.put = function (string, callback) {
+        string=  addWith(string)
+        self._put[string] = callback;
+    };
+
     return handle;
 };
 

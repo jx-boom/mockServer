@@ -1,5 +1,4 @@
 function getArguments(value,fn) {
-    console.log('getArguments');
     var reg = /\{(.*?)\}/g,
         arr = [],
         x = null;

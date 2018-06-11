@@ -56,9 +56,6 @@ server.listen(8080, getIPAdress(), function() {
       ":" +
       server.address().port
   );
-  function a() {}
-  function f() {}
-  function b() {}
   console.log("✡✡✡✡✡✡✡✡✡✡✡✡✡");
   console.log("⊙❤❤❤❤❤❤❤❤❤❤❤⊙");
   console.log("❤ X J I N G  ❤");

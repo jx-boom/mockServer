@@ -44,8 +44,7 @@ function uploadFile(req,res,app) {
             if(err){
                 console.log(err);
             }
-            console.log(allFile);
-            console.log('this is all file');
+
             allFile.forEach(function(file,index){
                 var fieldName=file[0].name;
                 var types = file[0].name.split('.');

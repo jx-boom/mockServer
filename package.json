@@ -10,7 +10,10 @@
   "license": "ISC",
   "dependencies": {
     "formidable": "^1.1.1",
-    "socket.io": "^2.0.4"
+    "jquery": "^3.3.1",
+    "socket.io": "^2.0.4",
+    "superagent": "^3.8.3",
+    "vue-quill-editor": "^3.0.6"
   },
   "devDependencies": {
     "eslint-config-standard": "^11.0.0",

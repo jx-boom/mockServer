@@ -3,7 +3,7 @@ var querystring = require('querystring');
 
 function reslogic(req, res,Api,agrJson) {
     var body ='';
-    console.log('reslogic');
+
     res.setHeader('Access-Control-Allow-Origin', '*');
 
     req.on('data', function (chunk) {
@@ -17,8 +17,7 @@ function reslogic(req, res,Api,agrJson) {
 
 
         try{
-            console.log(Api);
-            console.log(body);
+
             var logic =Api['logic'];
             var content = Api['content'];
             var contentType = Api['contentType'];
@@ -40,7 +39,7 @@ function reslogic(req, res,Api,agrJson) {
         }
     });
 
-    console.log('bbbb');
+
     // setTimeout(function () {
 
 

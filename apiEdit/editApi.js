@@ -7,22 +7,19 @@ function editApi(req, res, ApiList, app) {
   var body = "";
   req.on("data", function(chunk) {
     body += chunk;
-    console.log(chunk);
+
   });
   req.on("end", function() {
     // 解析参数
-    console.log("********");
-    console.log((body = JSON.parse(body)));
-    console.log(typeof body);
-    console.log("********");
+
+   body = JSON.parse(body);
+
     // body= JSON.parse(body);
     // body = querystring.parse(body); //将一个字符串反序列化为一个对象
     // body.content= JSON.parse( body.content);
     var ar = [];
     ar[0] = body;
-    console.log("===================");
-    console.log(typeof body);
-    console.log("===================");
+
 
     ApiList.add(ar, function(err, apiList) {
       if (!err) {
