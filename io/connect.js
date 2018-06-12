@@ -9,7 +9,6 @@ function connect(server) {
 
         socket.on('changeList', function(obj){
             //向所有客户端广播发布的消息
-            console.log(obj);
             io.emit('changeList', obj);
         });
     });

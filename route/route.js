@@ -1,8 +1,7 @@
 var url = require('url');
 var urlList =require('../module/urlList');
 var rediceApi =require('../res/rediceApi');
-console.log(rediceApi);
-console.log("rediceApi");
+var host =require('../host');
 var packingRes = function (res) {
 
     var end = res.end;
@@ -152,8 +151,14 @@ for(var key in query){
                     self['_' + method][pathname](req, res, agrJson);
                 }
                 else {
-                    rediceApi(res,reqdata,req,href)
+                    if(host.hostname!=host.realAddress&&host.realPort!=host.port){
+                        rediceApi(res,reqdata,req,href)
+                    }
 
+                   else{
+                        res.writeHead(404,{'Content-Type':'UTF-8'});
+                        res.end()
+                    }
                 }
             }
             else {

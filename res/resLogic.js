@@ -1,6 +1,6 @@
 var resContent= require('./resContent');
 var querystring = require('querystring');
-
+var group = require('../module/group');
 function reslogic(req, res,Api,agrJson) {
     var body ='';
 
@@ -14,21 +14,19 @@ function reslogic(req, res,Api,agrJson) {
         console.log('reslogicend');
         body = querystring.parse(body);  //将一个字符串反序列化为一个对象
         // body.content= JSON.parse( body.content);
-
-
         try{
-
             var logic =Api['logic'];
             var content = Api['content'];
             var contentType = Api['contentType'];
             var search =agrJson;
-
+            var $group= group.group;
+            console.log($group);
+            console.log('this is group');
             if(logic.length==0){
                 // 如果没逻辑 返回内容
               return  resContent(req, res,Api,content[0],contentType)
             }
             logic= '(function(){'+   logic+'})() ';
-            ;
             var responseText=  eval(logic);
             resContent(req, res,Api,responseText,contentType)
         }

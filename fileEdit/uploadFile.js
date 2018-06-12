@@ -28,7 +28,6 @@ function uploadFile(req,res,app) {
             value: bytesReceived,
             total: bytesExpected
         };
-        console.log('[progress]: ' + JSON.stringify(progressInfo));
     })
         .on('file', function (filed, file) {
             allFile.push([file]);//收集传过来的所有文件

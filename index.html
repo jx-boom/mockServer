@@ -4,13 +4,35 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>fast mock</title>
+    <title>高速路</title>
     <link rel="stylesheet" href="swipper.css">
 </head>
 
 <body>
-
     <style>
+        #editGroupBox>.addBtnBox{
+            background-color:#e9e1a6;
+            width: 100%;
+            overflow: hidden;
+        }
+        #editGroupBox{
+            display: none;
+        }
+        #editGroupBox>div{
+            background-color: #fff;
+        }
+       #editGroupBox>textarea{
+         width: 100%;
+         min-height: 500px;
+     }
+       .checkList{
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          z-index: 10;
+
+      }
        .host{
            background-color: #fff;
            font-size: 20px;
@@ -121,7 +143,7 @@
             font-size: 20px;
         }
 
-        #addTip {
+        #addTip,#addGroup {
             float: left;
             font-size: 20px;
             font-weight: 800;
@@ -267,8 +289,10 @@
             background-color: #a8ff00;
             animation: nurse-change 1s ease-out infinite;
         }
-
-        #list {
+      #Grouplist{
+        display: none;
+       }
+        #list ,#Grouplist{
             position: absolute;
             top: 20px;
             left: 0;
@@ -447,24 +471,36 @@
         <div id="dogNurse" class="nose"></div>
     </div>
     <div id="apilist">
-        <div class="search-box">
-            <input type="text" class="inputserVal">
-            <div id="search">搜</div>
-        </div>
+       <div class="checkList"> <button id="checkApi">api</button>  <button id="checkGroup">group</button></div>
+        <!--<div class="search-box">-->
+            <!--<input type="text" class="inputserVal">-->
+            <!--<div id="search">搜</div>-->
+        <!--</div>-->
         <ul id="list"></ul>
+        <ul id="Grouplist"></ul>
     </div>
 
     <!--<div class="left"></div>-->
     <div class="right">
-       <div class="host">
-         <span>hostname</span>
-           <input type="text" id="hostname">
-           <span>port</span>
-           <input id="port" type="number">
+        <div class="host">
+            <span>hostname</span>
+            <input type="text" id="hostname">
+            <span>port</span>
+            <input id="port" type="number">
 
-           <button id="sethost">确定</button>
-       </div>
+            <button id="sethost">确定</button>
+        </div>
+      <div id="editGroupBox">
+        <div>  <span>群组名称</span> <input type="text" id="groupName"> </div>
+         <div class="addBtnBox">
+             <i id="addGroup">提交</i>
+         </div>
+          <textarea name="" id="groupVal" cols="30" rows="10" id="groupContent"></textarea>
+      </div>
+
+
         <div id="editApiBox">
+
             <div id="urlBox">
                 <select id="methodSelect">
                     <option value="post">post</option>
@@ -548,7 +584,7 @@
             return
   }
 
-        $.post('http://' + ip + ':8080/setHost', { hostname:hostname, port:port}, function (res, status) {
+        $.post('http://' + ip + ':8088/setHost', { hostname:hostname, port:port}, function (res, status) {
             if (status != 'success') {
                 $("#pp").attr("class", "pp");
                 return
@@ -568,7 +604,8 @@
             for (var x = 0, l = list.length; x < l; x++) {
                 var val = $(list[x]).children().val();
                 if (val !== '') {
-                    content.push(JSON.parse(val))
+                    console.log(val);
+                    content.push(val)
                 }
             }
         }
@@ -595,7 +632,7 @@
         //ip
         $.ajax({
             type: 'POST',
-            url: "http://" + ip + ":8080/editApi",
+            url: "http://" + ip + ":8088/editApi",
             data: sim,
             dataType: "json",
             contentType: "application/json; charset=utf-8",
@@ -633,7 +670,7 @@
             formData.append("myfile", file);//循环遍历把文件对象插到formData对象上
         });
         var xhr = new XMLHttpRequest();
-        xhr.open("post", "http://" + ip + ":8080/upFile", true);//发送post请求到/upload
+        xhr.open("post", "http://" + ip + ":8088/upFile", true);//发送post请求到/upload
 
 
         xhr.onload = function (e) {
@@ -662,13 +699,20 @@
 
 
     }
+    function renderGroupList(arr, b) {
+        var DOM = '';
+        for (var api of arr) {
+            DOM += '<li   api=' + api + '  class=\'api\'><b class="text">' + api+ '</b> <i class="gt"></i> </li>'
+        };
+        $("#Grouplist").html(DOM)
 
 
+    }
     $('#list').on('click', '.gt', function (e) {
         var apiName = $(e.target).parent(".api").attr("api");
         $("#dogNurse").attr("class", "uploadNurse");
 
-        $.post('http://' + ip + ':8080/deleteApi', { apiName }, function (res, status) {
+        $.post('http://' + ip + ':8088/deleteApi', { apiName }, function (res, status) {
             if (status != 'success') {
                 $("#pp").attr("class", "pp");
                 return
@@ -688,7 +732,7 @@
         $(e.target).children('b').removeClass("hide");
 
         $("#dogNurse").attr("class", "uploadNurse");
-        $.get("http://" + ip + ":8080/apiContent", { api, method },
+        $.get("http://" + ip + ":8088/apiContent", { api, method },
             function (result, status) {
 
                 if (status != 'success') {
@@ -784,31 +828,105 @@
 
         $("#dogNurse").attr("class", "uploadNurse");
 
-        $.get('http://' + ip + ':8080/apiList', function (res, status) {
+        $.get('http://' + ip + ':8088/apiList', function (res, status) {
             if (status != 'success') {
                 $("#pp").attr("class", "pp");
                 return
             }
-            console.log('this is re');
+
             $("#dogNurse").attr("class", "nose");
             list = JSON.parse(res);
             renderApiList(JSON.parse(res), 'g')
+        });
+        $.get('http://' + ip + ':8088/groupList', function (res, status) {
+            if (status != 'success') {
+                $("#pp").attr("class", "pp");
+                return
+            }
+            $("#dogNurse").attr("class", "nose");
+            list = JSON.parse(res);
+            renderGroupList(JSON.parse(res), 'g')
         })
     });
 
 </script>
 <script>
     var ip = getIp();
-    socket = io.connect('ws://' + ip + ':8080');
+    socket = io.connect('ws://' + ip + ':8088');
     socket.on("changeList", function (reqIp) {
         console.log(reqIp.ip);
         console.log('其他更新');
-        $.get('http://' + ip + ':8080/apiList', function (res) {
+        $.get('http://' + ip + ':8088/apiList', function (res) {
             list = JSON.parse(res);
             renderApiList(JSON.parse(res))
         })
 
     });
 </script>
+<script>
+    $('#checkApi').click(function () {
+        $('#Grouplist').css("display", "none");
+        $('#editGroupBox').css("display", "none");
+        $('#list').css("display", "block");
+        $('#editApiBox').css("display", "block");
+    });
+    $('#checkGroup').click(function () {
+        $('#list').css("display", "none");
+        $('#editApiBox').css("display", "none");
+        $('#Grouplist').css("display", "block");
+        $('#editGroupBox').css("display", "block");
+        // $('.search-box').css("display", "none");
+    });
+    $('#Grouplist').click(function (e) {
+       var groupKey=   e.target.innerText;
+        if(e.target.className=='gt'){
+            groupKey=e.target.parentNode.childNodes[0].innerText
+           $.post('http://' + ip + ':8088/deleteGroup', { groupKey:groupKey},function (res, status) {
+               if (status != 'success') {
+                   $("#pp").attr("class", "pp");
+                   return
+               }
+               renderGroupList(JSON.parse(res), 'g')
+           })
+       }
+       else{
+           $.post('http://' + ip + ':8088/getGroupContent', { groupKey:groupKey},function (res, status) {
+               if (status != 'success') {
+                   $("#pp").attr("class", "pp");
+                   return
+               }
+               $("#groupName").val(groupKey)
+               $("#editGroupBox>textarea").val(res)
+           })
+       }
 
+
+
+    });
+    $('#addGroup').click(function (e) {
+       var groupKey=   $('#groupName').val();
+       var groupVal=   $('#groupVal').val();
+        try {
+            var result =typeof JSON.parse(JSON.stringify(groupVal));
+            if(result !='object'||groupKey.length<=1){
+                alert('格式错误')
+                return
+            }
+            $.post('http://' + ip + ':8088/addGroup', { groupKey:groupKey,groupVal:groupVal},function (res, status) {
+                if (status != 'success') {
+                    $("#pp").attr("class", "pp");
+                    return
+                }
+                renderGroupList(JSON.parse(res), 'g')
+            })
+        }
+        catch (e) {
+            alert('格式错误')
+        }
+
+
+
+
+    })
+</script>
 </html>

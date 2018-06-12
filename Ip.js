@@ -1,1 +1,1 @@
-function getIp() { return "192.168.1.122"}
+function getIp() { return "192.168.1.73"}

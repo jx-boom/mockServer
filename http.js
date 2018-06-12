@@ -3,6 +3,7 @@ var resApi = require("./response");
 var route = require("./route/route");
 var readFile = require("./fileEdit/readFile");
 var uploadApi = require("./apiEdit/uploadAPI");
+var host = require('./host')
 var os = require("os");
 var fs = require("fs");
 var cp = require("child_process");
@@ -46,16 +47,20 @@ fs.writeFile(
     }
   }
 );
-server.listen(8080, getIPAdress(), function() {
+server.listen(8088, getIPAdress(), function() {
   console.log(
     "listen " + server.address().address + ":" + server.address().port
   );
+    host.realAddress = server.address().address;
+    host.realPort = server.address().port;
   cp.exec(
     "start chrome http://" +
       server.address().address +
       ":" +
       server.address().port
   );
+    host.hostname= server.address().address;
+    host.port= server.address().port;
   console.log("✡✡✡✡✡✡✡✡✡✡✡✡✡");
   console.log("⊙❤❤❤❤❤❤❤❤❤❤❤⊙");
   console.log("❤ X J I N G  ❤");

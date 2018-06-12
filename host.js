@@ -1,5 +1,5 @@
 var host ={
-    hostname:'localhost',
-    port: 8080
+    hostname:null,
+    port: null
 };
 module.exports = host;

@@ -1,11 +1,20 @@
 
 var ApiList = require('./module/urlList');
+var groupList = require('./module/group');
 var uploadFile =require('./fileEdit/uploadFile');
 var responseFileList= require('./res/responseFileList');
 var editApi =require('./apiEdit/editApi');
 var getAllApi =require('./apiEdit/getAllApi');
 var deleteApi =require('./apiEdit/deleteApi');
-var sethost = require('./apiEdit/sethost')
+var sethost = require('./apiEdit/sethost');
+
+var addGroup        = require('./groupEdit/addGroup');
+var deleteGroup     = require('./groupEdit/deleteGroup');
+var getGroupContent = require('./groupEdit/getGroupContent');
+var getList         = require('./groupEdit/getList');
+
+
+
 var fs = require('fs');
 
 
@@ -23,6 +32,9 @@ function response(app) {
 
    app.get('/jquery.js',function (req,res) {
          res.end(get_file_content(__dirname + '\\dist\\jquery.js'))
+    });
+   app.get('/favicon.ico',function (req,res) {
+         res.end(get_file_content(__dirname + '\\favicon.ico'))
     });
    app.get('/socket.io.js',function (req,res) {
          res.end(get_file_content(__dirname + '\\dist\\socket.io.js'))
@@ -57,19 +69,18 @@ function response(app) {
      getAllApi(req,res,ApiList)
  });
     app.post('/deleteApi',function (req,res) {
-        console.log('777');
         deleteApi(req,res,ApiList)
     });
-  app.post('/editApi',function (req,res) {
-      console.log('666');
+    app.post('/editApi',function (req,res) {
 
       editApi(req,res,ApiList,app)
   });
-  app.post('/setHost',function (req,res) {
+    app.post('/setHost',function (req,res) {
       sethost(req,res,ApiList,app)
   });
-
-
-
+    app.post('/addGroup',function(req,res){addGroup(req,res,groupList)});
+    app.post('/deleteGroup',function(req,res){deleteGroup(req,res,groupList)});
+    app.post('/getGroupContent',function(req,res){getGroupContent(req,res,groupList)});
+    app.get('/groupList',function(req,res){getList(req,res,groupList)});
 };
 module.exports = response;

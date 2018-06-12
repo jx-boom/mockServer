@@ -9,6 +9,8 @@ function rediceApi(res,reqdata,req,href){
     res.setHeader("Content-Type","text/plain;charset=UTF-8");
 
     res.setHeader('Access-Control-Allow-Methods', 'GET, PUT,DELETE,POST,PATCH');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept,authorization,tenant,authorization');
     req.on('data', function (chunk) {
         body+=chunk;
     });
@@ -24,8 +26,6 @@ function rediceApi(res,reqdata,req,href){
         else{
             var header =req.headers;
             var method=req.method;
-            console.log(req);
-
             try{
                 var request= {
                     hostname: host.hostname,
@@ -45,11 +45,11 @@ function rediceApi(res,reqdata,req,href){
                     });
                 });
                 req1.on('error', function (e) {
+                    console.log(e);
+
                     console.log('problem with request: ' + e.message);
                     res.end();
                 });
-                console.log(content);
-                console.log('this is content');
                 req1.write(content);
                 req1.end()
 
