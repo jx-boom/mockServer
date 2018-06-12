@@ -20,8 +20,9 @@ function reslogic(req, res,Api,agrJson) {
             var contentType = Api['contentType'];
             var search =agrJson;
             var $group= group.group;
-            console.log($group);
-            console.log('this is group');
+            console.log(search);
+            console.log('this is search');
+
             if(logic.length==0){
                 // 如果没逻辑 返回内容
               return  resContent(req, res,Api,content[0],contentType)
