@@ -6,21 +6,26 @@ function rediceApi(res,reqdata,req,href){
     var body = '';
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', '*');
+    res.setHeader("Content-Type","text/plain;charset=UTF-8");
+
     res.setHeader('Access-Control-Allow-Methods', 'GET, PUT,DELETE,POST,PATCH');
     req.on('data', function (chunk) {
         body+=chunk;
     });
     req.on('end', function () {
         // 解析参数
-        body = querystring.parse(body);  //将一个字符串反序列化为一个对象
-        var content = querystring.stringify(body);
+        var  body1 = querystring.parse(body);  //将一个字符串反序列化为一个对象
+        var content = querystring.stringify(body1);
+        var content = body;
         if(req.method.toLowerCase()=='options'){
             res.writeHead(200,{"Content-Type":"text/plain;charset=UTF-8"});
             res.end();
         }
         else{
-            var header =reqdata.headers;
-            var method=reqdata.method;
+            var header =req.headers;
+            var method=req.method;
+            console.log(req);
+
             try{
                 var request= {
                     hostname: host.hostname,
@@ -29,18 +34,22 @@ function rediceApi(res,reqdata,req,href){
                     method: method,
                     headers: header
                 };
+
                 var req1 = http.request(request, function (res1) {
                     // res.writeHead(res1.statusCode,{"Content-Type":'UTF-8'});
-                    res1.on('data', function (chunk) {
-                        res.end(chunk);
-
+                    var chunks = [], size = 0;
+                    res1.on("data" , function(chunk){ chunks.push(chunk); size += chunk.length; });
+                    res1.on("end" , function(){
+                        var buffer = Buffer.concat(chunks, size);
+                        res.end(buffer)
                     });
-
                 });
                 req1.on('error', function (e) {
                     console.log('problem with request: ' + e.message);
                     res.end();
                 });
+                console.log(content);
+                console.log('this is content');
                 req1.write(content);
                 req1.end()
 
