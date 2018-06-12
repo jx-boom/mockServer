@@ -20,7 +20,8 @@ function getIPAdress() {
         alias.address !== "127.0.0.1" &&
         !alias.internal
       ) {
-        return alias.address;
+        // return alias.address;
+        return '118.190.144.228';
       }
     }
   }
@@ -35,7 +36,8 @@ ioConnect(server);
 
 // 创建 服务
 var ip = getIPAdress();
-
+console.log(ip);
+console.log("ip");
 fs.writeFile(
   __dirname + "\\Ip.js",
   'function getIp() { return "' + ip + '"}',
